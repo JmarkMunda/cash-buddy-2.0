@@ -4,9 +4,9 @@
 node_modules/
 
 # Expo
-.expo/
-dist/
-web-build/
+client/.expo/
+client/dist/
+client/web-build/
 
 # Native
 *.orig.*

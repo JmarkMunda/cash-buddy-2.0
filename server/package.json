@@ -1,0 +1,24 @@
+{
+  "name": "cash-buddy",
+  "version": "1.0.0",
+  "main": "./app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jm",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.5.3",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.18",
+    "@types/node": "^20.7.0",
+    "nodemon": "^3.0.1",
+    "typescript": "^5.2.2"
+  }
+}
