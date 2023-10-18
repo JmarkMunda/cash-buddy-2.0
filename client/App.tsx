@@ -1,21 +1,23 @@
 import "react-native-gesture-handler";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
-import DashboardScreen from "./src/screens/DashboardScreen";
 import DrawerNavigator from "./src/navigators/DrawerNavigator";
-
-const Stack = createNativeStackNavigator();
+import { useSettingsStore } from "./src/zustand/store/settings";
+import { MyDarkTheme, MyLightTheme } from "./src/utils/theme";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function App() {
+  const isDarkMode = useSettingsStore((state) => state.isDarkMode);
+
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
-      <NavigationContainer>
-        <DrawerNavigator />
-      </NavigationContainer>
-    </ApplicationProvider>
+    <SafeAreaProvider>
+      <ApplicationProvider {...eva} theme={!isDarkMode ? eva.light : eva.dark}>
+        <NavigationContainer theme={!isDarkMode ? MyLightTheme : MyDarkTheme}>
+          <DrawerNavigator />
+        </NavigationContainer>
+      </ApplicationProvider>
+    </SafeAreaProvider>
   );
 }
-
