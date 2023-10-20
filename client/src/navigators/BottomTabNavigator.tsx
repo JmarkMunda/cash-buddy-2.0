@@ -1,11 +1,14 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons, FontAwesome, Entypo } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 import DashboardScreen from "../screens/DashboardScreen";
 import HistoryScreen from "../screens/HistoryScreen";
 import CalculatorScreen from "../screens/CalculatorScreen";
 import WalletScreen from "../screens/Wallet/WalletScreen";
-import { Ionicons, FontAwesome, Entypo } from "@expo/vector-icons";
 import HeaderButton from "../components/HeaderButton";
+import shadows from "../utils/shadows";
+import Container from "../components/Container";
 
 type IconProps = {
   focused: boolean;
@@ -16,6 +19,8 @@ type IconProps = {
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
+  const { colors } = useTheme();
+
   const tabs = [
     {
       name: "Wallet",
@@ -43,14 +48,13 @@ const BottomTabNavigator = () => {
     <Tab.Navigator
       initialRouteName="Wallet"
       screenOptions={(props) => ({
-        headerLeftContainerStyle: { paddingLeft: 16 },
-        headerRightContainerStyle: { paddingRight: 16 },
         headerTransparent: true,
         headerLeft: (btnProps) => (
           <HeaderButton
             name="ios-chevron-back"
             size={32}
             onPress={() => {}}
+            containerStyle={{ marginLeft: 16 }}
             {...btnProps}
           />
         ),
@@ -59,18 +63,23 @@ const BottomTabNavigator = () => {
             name="settings-outline"
             size={32}
             onPress={() => props.navigation.openDrawer()}
+            containerStyle={{ marginRight: 16 }}
             {...btnProps}
           />
         ),
+        tabBarItemStyle: { height: 90, borderRadius: 99 },
         tabBarShowLabel: false,
         tabBarStyle: {
-          elevation: 0,
-          paddingVertical: 8,
-          margin: 16,
-          borderRadius: 16,
-          // borderTopRightRadius: 24,
-          // borderTopLeftRadius: 24,
+          ...shadows.md,
+          position: "absolute",
+          bottom: 10,
+          margin: 24,
+          height: 90,
+          borderTopWidth: 0,
         },
+        tabBarActiveBackgroundColor: colors.text,
+        tabBarInactiveTintColor: colors.text,
+        tabBarBackground: () => <Container intensity={30} radius={99} />,
       })}>
       {tabs.map((tab) => (
         <Tab.Screen

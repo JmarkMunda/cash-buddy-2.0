@@ -10,6 +10,7 @@ const WalletScreen = () => {
   return (
     <LinearContainer
       colors={[colors.primary, colors.background]}
+      locations={[0, 1]}
       start={{ x: 0.9, y: 0.1 }}
       end={{ x: 0.1, y: 0.9 }}>
       <CardBalance />

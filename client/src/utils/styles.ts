@@ -5,6 +5,7 @@ const AppStyles = {
   container: {
     ...spacing.p16,
   },
+  flex_center: {},
 };
 
 export default AppStyles;
