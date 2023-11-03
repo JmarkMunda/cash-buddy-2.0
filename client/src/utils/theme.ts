@@ -7,7 +7,7 @@ export const MyLightTheme = {
     primary: "rgb(185, 238, 164)",
     secondary: "rgb(246, 248, 122)",
     tertiary: "rgb(204, 248, 187)",
-    background: "rgb(242, 242, 242)",
+    background: "rgb(201, 201, 201)",
     card: "rgb(255, 255, 255)",
     text: "rgb(28, 28, 30)",
     border: "rgb(199, 199, 204)",

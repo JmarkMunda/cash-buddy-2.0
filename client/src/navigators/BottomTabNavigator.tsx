@@ -9,6 +9,7 @@ import WalletScreen from "../screens/Wallet/WalletScreen";
 import HeaderButton from "../components/HeaderButton";
 import shadows from "../utils/shadows";
 import Container from "../components/Container";
+import { StyleSheet } from "react-native";
 
 type IconProps = {
   focused: boolean;
@@ -67,19 +68,26 @@ const BottomTabNavigator = () => {
             {...btnProps}
           />
         ),
-        tabBarItemStyle: { height: 90, borderRadius: 99 },
+        tabBarItemStyle: { height: 80, borderRadius: 99 },
         tabBarShowLabel: false,
         tabBarStyle: {
           ...shadows.md,
+          borderRadius: 99,
           position: "absolute",
           bottom: 10,
           margin: 24,
-          height: 90,
+          height: 80,
           borderTopWidth: 0,
         },
         tabBarActiveBackgroundColor: colors.text,
         tabBarInactiveTintColor: colors.text,
-        tabBarBackground: () => <Container intensity={30} radius={99} />,
+        tabBarBackground: () => (
+          <Container
+            intensity={30}
+            radius={99}
+            style={StyleSheet.absoluteFill}
+          />
+        ),
       })}>
       {tabs.map((tab) => (
         <Tab.Screen

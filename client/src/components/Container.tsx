@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, StyleProp, ViewStyle } from "react-native";
+import {
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  FlexStyle,
+  FlexAlignType,
+} from "react-native";
 import { BlurView } from "expo-blur";
 import { useTheme } from "@react-navigation/native";
 
@@ -23,11 +29,7 @@ const Container = ({
     <BlurView
       tint={!dark ? "light" : "dark"}
       intensity={intensity}
-      style={[
-        StyleSheet.absoluteFill,
-        { borderRadius: radius, overflow: "hidden" },
-        style,
-      ]}
+      style={[{ borderRadius: radius, overflow: "hidden" }, style]}
       {...props}>
       {children}
     </BlurView>

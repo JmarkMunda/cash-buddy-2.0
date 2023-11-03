@@ -4,13 +4,14 @@ import { useTheme } from "@react-navigation/native";
 
 interface ITextProps extends TextProps {
   children: string;
+  color?: string;
 }
 
-const Text = ({ children, style, ...props }: ITextProps) => {
+const Text = ({ children, color, style, ...props }: ITextProps) => {
   const { colors } = useTheme();
 
   return (
-    <UKText style={[{ color: colors.text }, style]} {...props}>
+    <UKText style={[{ color: color ?? colors.text }, style]} {...props}>
       {children}
     </UKText>
   );

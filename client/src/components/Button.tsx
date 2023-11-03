@@ -8,14 +8,33 @@ import { StyleSheet } from "react-native";
 
 interface IButtonProps extends ButtonProps {
   children: string;
-  status?: "success" | "danger" | "info" | "warning" | "basic" | "control";
+  status?:
+    | "primary"
+    | "success"
+    | "danger"
+    | "info"
+    | "warning"
+    | "basic"
+    | "control";
   size?: "tiny" | "small" | "medium" | "large" | "giant";
   appearance?: "filled" | "outline" | "ghost";
 }
 
-const Button = ({ children, style, ...props }: IButtonProps) => {
+const Button = ({
+  children,
+  status = "primary",
+  size = "medium",
+  appearance = "filled",
+  style,
+  ...props
+}: IButtonProps) => {
   return (
-    <UKButton style={[styles.button, style]} {...props}>
+    <UKButton
+      status={status}
+      size={size}
+      appearance={appearance}
+      style={[styles.button, style]}
+      {...props}>
       {children}
     </UKButton>
   );
