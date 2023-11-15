@@ -1,15 +1,13 @@
 import { create, StateCreator } from "zustand";
 
-interface DarkModeSlice {
+interface IDarkModeSlice {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
 }
 
-const createDarkModeSlice: StateCreator<DarkModeSlice> = (set) => ({
+const createDarkModeSlice: StateCreator<IDarkModeSlice> = (set) => ({
   isDarkMode: false,
   toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
 });
 
-export const useSettingsStore = create<DarkModeSlice>()((...a) => ({
-  ...createDarkModeSlice(...a),
-}));
+export { IDarkModeSlice, createDarkModeSlice };
