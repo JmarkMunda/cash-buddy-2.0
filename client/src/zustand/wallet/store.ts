@@ -1,8 +1,15 @@
 import { create } from "zustand";
-import { ICashSlice, createCashSlice } from "./cashSlice";
+import { CashSliceType, createCashSlice } from "./cashSlice";
 import { IBankSlice, createBankSlice } from "./bankSlice";
+import {
+  TransactionSliceType,
+  createTransactionSlice,
+} from "./transactionSlice";
 
-export const useBoundStore = create<ICashSlice & IBankSlice>()((...a) => ({
+type StoreType = CashSliceType & IBankSlice & TransactionSliceType;
+
+export const useWalletStore = create<StoreType>()((...a) => ({
   ...createCashSlice(...a),
   ...createBankSlice(...a),
+  ...createTransactionSlice(...a),
 }));

@@ -3,13 +3,23 @@ import Container from "../../../components/Container";
 import spacings from "../../../utils/spacings";
 import { StyleSheet, View } from "react-native";
 import Text from "../../../components/Text";
+import { RecordType } from "../../../zustand/wallet/transactionSlice";
 
-const TransactionCard = () => {
+interface ITransactionCard {
+  item: RecordType;
+}
+
+const TransactionCard = ({ item }: ITransactionCard) => {
+  const isExpense = item.type === "cash-out";
+  const color = isExpense ? "#d35656" : "#499ce0";
+
   return (
     <Container style={[spacings.my8, spacings.p16]} intensity={100}>
       <View style={styles.contentContainer}>
-        <Text>Bought a bag</Text>
-        <Text>P300</Text>
+        <Text category="label" color={color}>
+          {item.tag}
+        </Text>
+        <Text category="label" color={color}>{`P${item.amount}`}</Text>
       </View>
     </Container>
   );

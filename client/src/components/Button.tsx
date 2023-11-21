@@ -18,6 +18,7 @@ interface IButtonProps extends ButtonProps {
     | "control";
   size?: "tiny" | "small" | "medium" | "large" | "giant";
   appearance?: "filled" | "outline" | "ghost";
+  loading?: boolean;
 }
 
 const Button = ({
@@ -25,6 +26,7 @@ const Button = ({
   status = "primary",
   size = "medium",
   appearance = "filled",
+  loading = false,
   style,
   ...props
 }: IButtonProps) => {

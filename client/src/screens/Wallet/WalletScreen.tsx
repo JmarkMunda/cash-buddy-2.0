@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import CardBalance from "./components/CardBalance";
 import { useTheme } from "@react-navigation/native";
 import LinearContainer from "../../components/LinearContainer";
@@ -7,21 +7,19 @@ import { add_wallet, minus_wallet } from "../../../assets/images/assets";
 import TransactionList from "./components/TransactionList";
 import { SheetManager } from "react-native-actions-sheet";
 import InOutCashButton from "./components/InOutCashButton";
-import CashInSheet from "./components/CashInSheet";
-import CashOutSheet from "./components/CashOutSheet";
 
 const WalletScreen = () => {
   const { colors } = useTheme();
 
-  const onInsertCashPress = () => {
-    SheetManager.show("insert-cash-sheet", {
-      payload: { type: "insert" },
+  const onInsertCashPress = useCallback(async () => {
+    await SheetManager.show("wallet-sheet", {
+      payload: { type: "cash-in" },
     });
-  };
+  }, []);
 
   const onTakeOutCashPress = () => {
-    SheetManager.show("remove-cash-sheet", {
-      payload: { type: "take-out" },
+    SheetManager.show("wallet-sheet", {
+      payload: { type: "cash-out" },
     });
   };
 
@@ -32,7 +30,9 @@ const WalletScreen = () => {
       start={{ x: 0.9, y: 0.1 }}
       end={{ x: 0.1, y: 0.9 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Balance */}
         <CardBalance />
+        {/* Buttons */}
         <View style={styles.walletBtnContainer}>
           <InOutCashButton
             image={add_wallet}
@@ -45,14 +45,9 @@ const WalletScreen = () => {
             onPress={onTakeOutCashPress}
           />
         </View>
-
         {/* Lists */}
         <TransactionList />
       </ScrollView>
-
-      {/* Outside components */}
-      <CashInSheet sheetId="insert-cash-sheet" />
-      <CashOutSheet sheetId="remove-cash-sheet" />
     </LinearContainer>
   );
 };

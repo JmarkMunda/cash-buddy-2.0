@@ -1,8 +1,6 @@
 import { registerSheet } from "react-native-actions-sheet";
-import CashInSheet from "../screens/Wallet/components/CashInSheet";
-import CashOutSheet from "../screens/Wallet/components/CashOutSheet";
+import WalletSheet from "../screens/Wallet/components/WalletSheet";
 
-registerSheet("insert-cash-sheet", CashInSheet);
-registerSheet("remove-cash-sheet", CashOutSheet);
+registerSheet("wallet-sheet", WalletSheet);
 
 export {};

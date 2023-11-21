@@ -10,6 +10,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { SheetProvider } from "react-native-actions-sheet";
+import "./src/utils/sheets";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();

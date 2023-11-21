@@ -8,9 +8,14 @@ import AppStyles from "../../../utils/styles";
 import spacings from "../../../utils/spacings";
 import { ImageBackground } from "react-native";
 import { card_wallet_bg } from "../../../../assets/images/assets";
+import { useWalletStore } from "../../../zustand/wallet/store";
 
 const CardBalance = () => {
   const { colors } = useTheme();
+  const [cashBalance, bankBalance] = useWalletStore((state) => [
+    state.cashBalance,
+    state.bankBalance,
+  ]);
 
   return (
     <Card shadow="lg" style={{ padding: 0 }}>
@@ -22,7 +27,7 @@ const CardBalance = () => {
           Balance:
         </Text>
         <Text category="h3" color="white" style={spacings.my4}>
-          P 10,000
+          {`P ${cashBalance}`}
         </Text>
 
         <Text

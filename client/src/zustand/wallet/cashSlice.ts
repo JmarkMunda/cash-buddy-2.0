@@ -1,15 +1,37 @@
 import { StateCreator } from "zustand";
 
-interface ICashSlice {
-  cashBalance: 0;
-  insertCash: () => void;
-  takeOutCash: () => void;
-}
+type State = {
+  cashBalance: number;
+  loading?: boolean;
+};
 
-const createCashSlice: StateCreator<ICashSlice> = (set) => ({
+type Actions = {
+  insertCash: (amount: number) => void;
+  takeOutCash: (amount: number) => void;
+};
+
+type CashSliceType = State & Actions;
+
+const initialState: State = {
   cashBalance: 0,
-  insertCash: () => set((state) => ({})),
-  takeOutCash: () => set((state) => ({})),
+  loading: false,
+};
+
+const createCashSlice: StateCreator<CashSliceType> = (set) => ({
+  ...initialState,
+  insertCash: async (amount) => {
+    set({ loading: true });
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    set((state) => ({
+      cashBalance: state.cashBalance + amount,
+      loading: false,
+    }));
+  },
+  takeOutCash: async (amount) => {
+    set({ loading: true });
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    set((state) => ({ cashBalance: state.cashBalance - amount }));
+  },
 });
 
-export { ICashSlice, createCashSlice };
+export { CashSliceType, createCashSlice };

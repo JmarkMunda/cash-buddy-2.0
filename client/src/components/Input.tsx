@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { Input as UIKInput, InputProps } from "@ui-kitten/components";
 
 interface IInput extends InputProps {

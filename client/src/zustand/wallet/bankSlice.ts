@@ -1,13 +1,17 @@
 import { StateCreator } from "zustand";
 
 interface IBankSlice {
-  bankBalance: 0;
+  bankBalance: number;
   depositCash: () => void;
   withdrawCash: () => void;
 }
 
-const createBankSlice: StateCreator<IBankSlice> = (set) => ({
+const initialState = {
   bankBalance: 0,
+};
+
+const createBankSlice: StateCreator<IBankSlice> = (set) => ({
+  ...initialState,
   depositCash: () => set((state) => ({})),
   withdrawCash: () => set((state) => ({})),
 });

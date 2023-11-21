@@ -7,11 +7,15 @@ import AppStyles from "../../../utils/styles";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import TransactionCard from "./TransactionCard";
 import { FlashList } from "@shopify/flash-list";
+import { useWalletStore } from "../../../zustand/wallet/store";
 
 const HEIGHT = Dimensions.get("window").height;
 
 const TransactionList = () => {
   const tabBarHeight = useBottomTabBarHeight();
+  const records = useWalletStore(({ records }) => records);
+
+  const renderItem = ({ item }) => <TransactionCard item={item} />;
 
   return (
     <View style={[AppStyles.flex, { marginBottom: tabBarHeight + 40 }]}>
@@ -23,9 +27,9 @@ const TransactionList = () => {
 
         <View style={{ minHeight: 2, flex: 1 }}>
           <FlashList
-            data={[1, 2, 3, 4, 5]}
+            data={records}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={() => <TransactionCard />}
+            renderItem={renderItem}
             estimatedItemSize={20}
             nestedScrollEnabled
           />
