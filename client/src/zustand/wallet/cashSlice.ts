@@ -30,7 +30,10 @@ const createCashSlice: StateCreator<CashSliceType> = (set) => ({
   takeOutCash: async (amount) => {
     set({ loading: true });
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    set((state) => ({ cashBalance: state.cashBalance - amount }));
+    set((state) => ({
+      cashBalance: state.cashBalance - amount,
+      loading: false,
+    }));
   },
 });
 

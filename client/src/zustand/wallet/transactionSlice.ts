@@ -3,7 +3,7 @@ import { StateCreator } from "zustand";
 type RecordType = {
   type: "cash-in" | "cash-out";
   tag: string;
-  description?: string;
+  notes?: string;
   amount: string;
   date: Date;
 };

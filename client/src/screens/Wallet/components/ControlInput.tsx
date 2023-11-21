@@ -3,9 +3,9 @@ import React from "react";
 import { TextInput, View, TextStyle } from "react-native";
 import { useController, UseControllerProps } from "react-hook-form";
 import { FormValues } from "../types";
-import { InputProps } from "@ui-kitten/components";
 import Text from "../../../components/Text";
 import { useTheme } from "@react-navigation/native";
+import { TextInputProps } from "react-native-paper";
 
 interface IControlInput extends UseControllerProps<FormValues> {
   label?: string;
@@ -13,7 +13,7 @@ interface IControlInput extends UseControllerProps<FormValues> {
   labelStyle?: TextStyle;
 }
 
-type ControlInputType = IControlInput & InputProps;
+type ControlInputType = IControlInput & TextInputProps;
 
 const ControlInput = (props: ControlInputType) => {
   const { field, fieldState } = useController(props);

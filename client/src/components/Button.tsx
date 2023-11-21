@@ -1,50 +1,39 @@
 import React from "react";
-import {
-  Button as UKButton,
-  ButtonProps,
-  Spinner,
-} from "@ui-kitten/components";
-import { StyleSheet } from "react-native";
+
+import { StyleSheet, ViewStyle, StyleProp } from "react-native";
+
+import { Button as PaperButton, ButtonProps } from "react-native-paper";
 
 interface IButtonProps extends ButtonProps {
   children: string;
-  status?:
-    | "primary"
-    | "success"
-    | "danger"
-    | "info"
-    | "warning"
-    | "basic"
-    | "control";
-  size?: "tiny" | "small" | "medium" | "large" | "giant";
-  appearance?: "filled" | "outline" | "ghost";
   loading?: boolean;
+  onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 }
 
 const Button = ({
   children,
-  status = "primary",
-  size = "medium",
-  appearance = "filled",
   loading = false,
+  onPress,
   style,
   ...props
 }: IButtonProps) => {
   return (
-    <UKButton
-      status={status}
-      size={size}
-      appearance={appearance}
+    <PaperButton
       style={[styles.button, style]}
+      loading={loading}
+      disabled={loading}
+      onPress={onPress}
       {...props}>
       {children}
-    </UKButton>
+    </PaperButton>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
     borderRadius: 16,
+    padding: 8,
   },
 });
 

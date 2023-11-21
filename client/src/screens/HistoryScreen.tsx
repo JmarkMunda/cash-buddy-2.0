@@ -1,11 +1,12 @@
 import React from "react";
-import { Layout, Text } from "@ui-kitten/components";
+import { View } from "react-native";
+import Text from "../components/Text";
 
 const HistoryScreen = () => {
   return (
-    <Layout>
+    <View>
       <Text>History Screen</Text>
-    </Layout>
+    </View>
   );
 };
 

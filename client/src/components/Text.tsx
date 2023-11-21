@@ -1,19 +1,22 @@
 import React from "react";
-import { Text as UKText, TextProps } from "@ui-kitten/components";
+import { StyleProp, TextStyle } from "react-native";
+import { Text as PaperText, TextProps } from "react-native-paper";
+
 import { useTheme } from "@react-navigation/native";
 
-interface ITextProps extends TextProps {
+interface ITextProps extends TextProps<any> {
   children: string;
   color?: string;
+  style?: StyleProp<TextStyle>;
 }
 
 const Text = ({ children, color, style, ...props }: ITextProps) => {
   const { colors } = useTheme();
 
   return (
-    <UKText style={[{ color: color ?? colors.text }, style]} {...props}>
+    <PaperText style={[{ color: color ?? colors.text }, style]} {...props}>
       {children}
-    </UKText>
+    </PaperText>
   );
 };
 

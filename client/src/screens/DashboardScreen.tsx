@@ -1,11 +1,12 @@
 import React from "react";
-import { Layout, Text } from "@ui-kitten/components";
+import { View } from "react-native";
+import Text from "../components/Text";
 
 const DashboardScreen = () => {
   return (
-    <Layout level="1">
-      <Text category="h3">DashboardScreen</Text>
-    </Layout>
+    <View>
+      <Text>DashboardScreen</Text>
+    </View>
   );
 };
 

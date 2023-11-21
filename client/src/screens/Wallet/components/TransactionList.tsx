@@ -17,12 +17,18 @@ const TransactionList = () => {
 
   const renderItem = ({ item }) => <TransactionCard item={item} />;
 
+  const renderEmpty = () => (
+    <Text variant="bodyMedium" style={{ textAlign: "center" }}>
+      No transactions
+    </Text>
+  );
+
   return (
     <View style={[AppStyles.flex, { marginBottom: tabBarHeight + 40 }]}>
       <Container intensity={80} style={[AppStyles.flex, styles.container]}>
         <View style={styles.transactionHeader}>
-          <Text category="h6">Transactions</Text>
-          <Text category="label">See All</Text>
+          <Text variant="titleMedium">Transactions</Text>
+          <Text variant="titleSmall">See all</Text>
         </View>
 
         <View style={{ minHeight: 2, flex: 1 }}>
@@ -31,6 +37,7 @@ const TransactionList = () => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={renderItem}
             estimatedItemSize={20}
+            ListEmptyComponent={renderEmpty}
             nestedScrollEnabled
           />
         </View>

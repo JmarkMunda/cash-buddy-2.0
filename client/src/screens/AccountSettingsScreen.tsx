@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { Layout, Text, Toggle } from "@ui-kitten/components";
+import React from "react";
 import { useSettingsStore } from "../zustand/settings/store";
+import { View } from "react-native";
+import Text from "../components/Text";
+import { Switch } from "react-native-paper";
 
 const AccountSettingsScreen = () => {
   const [isDarkMode, toggleDarkMode] = useSettingsStore((state) => [
@@ -9,13 +11,12 @@ const AccountSettingsScreen = () => {
   ]);
 
   return (
-    <Layout>
+    <View>
       <Text>Account Settings</Text>
 
-      <Toggle checked={isDarkMode} onChange={toggleDarkMode}>
-        {`Dark Mode: ${isDarkMode}`}
-      </Toggle>
-    </Layout>
+      <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
+      <Text>{`Dark Mode: ${isDarkMode}`}</Text>
+    </View>
   );
 };
 

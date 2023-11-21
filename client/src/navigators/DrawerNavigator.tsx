@@ -7,7 +7,8 @@ import {
 } from "@react-navigation/drawer";
 import MainNavigator from "./MainNavigator";
 import { useSettingsStore } from "../zustand/settings/store";
-import { Toggle } from "@ui-kitten/components";
+import { Switch } from "react-native-paper";
+import Text from "../components/Text";
 
 const Drawer = createDrawerNavigator();
 
@@ -22,9 +23,8 @@ const DrawerNavigator = () => {
 
     return (
       <DrawerContentScrollView {...props}>
-        <Toggle checked={isDarkMode} onChange={toggleDarkMode}>
-          {`Dark Mode: ${isDarkMode}`}
-        </Toggle>
+        <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
+        <Text>{`Dark Mode: ${isDarkMode}`}</Text>
 
         {drawers.map((drawer) => (
           <DrawerItem

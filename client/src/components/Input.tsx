@@ -1,7 +1,7 @@
 import React from "react";
-import { Input as UIKInput, InputProps } from "@ui-kitten/components";
+import { TextInput, TextInputProps } from "react-native-paper";
 
-interface IInput extends InputProps {
+interface IInput extends TextInputProps {
   value: string;
   label?: string;
   onChangeText: (text: string) => void;
@@ -9,7 +9,7 @@ interface IInput extends InputProps {
 
 const Input = ({ label, value, onChangeText, ...props }: IInput) => {
   return (
-    <UIKInput
+    <TextInput
       label={label}
       value={value}
       onChangeText={onChangeText}

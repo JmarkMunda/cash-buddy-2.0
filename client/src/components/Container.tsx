@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-  FlexStyle,
-  FlexAlignType,
-} from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import { BlurView } from "expo-blur";
 import { useTheme } from "@react-navigation/native";
 

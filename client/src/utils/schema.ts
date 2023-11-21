@@ -8,11 +8,3 @@ export const cashInSchema = yup
     amount: yup.string().required(),
   })
   .required();
-
-export const cashOutSchema = yup
-  .object()
-  .shape({
-    description: yup.string().notRequired(),
-    amount: yup.string().required(),
-  })
-  .required();

@@ -23,18 +23,14 @@ const CardBalance = () => {
         source={card_wallet_bg}
         resizeMode="cover"
         style={{ ...spacings.p24, overflow: "hidden", borderRadius: 16 }}>
-        <Text category="s1" color="white">
+        <Text variant="titleMedium" color="white">
           Balance:
         </Text>
-        <Text category="h3" color="white" style={spacings.my4}>
+        <Text variant="displaySmall" color="white" style={spacings.my4}>
           {`P ${cashBalance}`}
         </Text>
 
-        <Text
-          category="c1"
-          color="white"
-          appearance="hint"
-          style={{ marginTop: 8 }}>
+        <Text variant="labelSmall" color="white" style={{ marginTop: 8 }}>
           {formatDate(new Date(), "l")}
         </Text>
       </ImageBackground>

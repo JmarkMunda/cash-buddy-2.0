@@ -1,8 +1,8 @@
 import "react-native-gesture-handler";
 import React, { useCallback, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { ApplicationProvider } from "@ui-kitten/components";
-import * as eva from "@eva-design/eva";
+import { PaperProvider } from "react-native-paper";
+
 import DrawerNavigator from "./src/navigators/DrawerNavigator";
 import { useSettingsStore } from "./src/zustand/settings/store";
 import { MyDarkTheme, MyLightTheme } from "./src/utils/theme";
@@ -46,7 +46,10 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <StatusBar translucent />
-      <ApplicationProvider {...eva} theme={!isDarkMode ? eva.light : eva.dark}>
+      <PaperProvider>
+        {/* <ApplicationProvider
+          {...eva}
+          theme={!isDarkMode ? eva.light : eva.dark}> */}
         <SheetProvider>
           <NavigationContainer
             theme={!isDarkMode ? MyLightTheme : MyDarkTheme}
@@ -54,7 +57,8 @@ export default function App() {
             <DrawerNavigator />
           </NavigationContainer>
         </SheetProvider>
-      </ApplicationProvider>
+        {/* </ApplicationProvider> */}
+      </PaperProvider>
     </SafeAreaProvider>
   );
 }

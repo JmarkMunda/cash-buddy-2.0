@@ -21,8 +21,9 @@ interface IWalletSheetProps {
 
 const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
   // Global State
-  const [insertCash, takeOutCash, insertRecord] = useWalletStore(
-    ({ insertCash, takeOutCash, insertRecord }) => [
+  const [loading, insertCash, takeOutCash, insertRecord] = useWalletStore(
+    ({ loading, insertCash, takeOutCash, insertRecord }) => [
+      loading,
       insertCash,
       takeOutCash,
       insertRecord,
@@ -42,17 +43,17 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
-      reset();
       setValue(null);
+      reset();
       SheetManager.hide("wallet-sheet");
     }
   }, [formState.isSubmitSuccessful, reset]);
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     if (props.payload?.type === "cash-in") {
-      insertCash(+data.amount);
+      await insertCash(+data.amount);
     } else {
-      takeOutCash(+data.amount);
+      await takeOutCash(+data.amount);
     }
     insertRecord({ type: props.payload?.type, date: new Date(), ...data });
   };
@@ -98,9 +99,9 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
         />
 
         <Button
-          status={props.payload?.type === "cash-in" ? "success" : "danger"}
+          mode="contained"
           onPress={handleSubmit(onSubmit)}
-          loading={true}>
+          loading={loading}>
           {props.payload?.type === "cash-in" ? "Insert" : "Take out"}
         </Button>
       </View>
