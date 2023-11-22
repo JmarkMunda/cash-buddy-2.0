@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons, FontAwesome, Entypo } from "@expo/vector-icons";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "react-native-paper";
 import DashboardScreen from "../screens/DashboardScreen";
 import HistoryScreen from "../screens/HistoryScreen";
 import CalculatorScreen from "../screens/CalculatorScreen";
@@ -9,7 +9,7 @@ import WalletScreen from "../screens/Wallet/WalletScreen";
 import HeaderButton from "../components/HeaderButton";
 import shadows from "../utils/shadows";
 import Container from "../components/Container";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 type IconProps = {
   focused: boolean;
@@ -68,7 +68,10 @@ const BottomTabNavigator = () => {
             {...btnProps}
           />
         ),
-        tabBarItemStyle: { height: 80, borderRadius: 99 },
+        tabBarItemStyle: {
+          height: Platform.OS === "android" ? 80 : 90,
+          borderRadius: 99,
+        },
         tabBarShowLabel: false,
         tabBarStyle: {
           ...shadows.md,
@@ -76,14 +79,15 @@ const BottomTabNavigator = () => {
           position: "absolute",
           bottom: 10,
           margin: 24,
-          height: 80,
+          height: Platform.OS === "android" ? 80 : 90,
           borderTopWidth: 0,
         },
-        tabBarActiveBackgroundColor: colors.text,
-        tabBarInactiveTintColor: colors.text,
+        tabBarActiveBackgroundColor: colors.primary,
+        tabBarActiveTintColor: colors.background,
+        tabBarInactiveTintColor: colors.onBackground,
         tabBarBackground: () => (
           <Container
-            intensity={30}
+            intensity={50}
             radius={99}
             style={StyleSheet.absoluteFill}
           />

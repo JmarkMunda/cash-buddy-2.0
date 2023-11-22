@@ -1,30 +1,39 @@
 import "react-native-gesture-handler";
 import React, { useCallback, useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { PaperProvider } from "react-native-paper";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme as RNDarkTheme,
+} from "@react-navigation/native";
+import { PaperProvider, adaptNavigationTheme } from "react-native-paper";
 
 import DrawerNavigator from "./src/navigators/DrawerNavigator";
 import { useSettingsStore } from "./src/zustand/settings/store";
-import { MyDarkTheme, MyLightTheme } from "./src/utils/theme";
+import { CustomDarkTheme, CustomLightTheme } from "./src/utils/theme";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
+import { useFonts, Signika_400Regular } from "@expo-google-fonts/signika";
 import { SheetProvider } from "react-native-actions-sheet";
 import "./src/utils/sheets";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
+const { LightTheme } = adaptNavigationTheme({
+  reactNavigationLight: DefaultTheme,
+});
+const { DarkTheme } = adaptNavigationTheme({
+  reactNavigationDark: RNDarkTheme,
+});
 
 export default function App() {
   const isDarkMode = useSettingsStore((state) => state.isDarkMode);
   const [appIsReady, setAppIsReady] = useState(false);
+  useFonts({ Signika_400Regular });
 
   useEffect(() => {
     async function prepare() {
       try {
-        // Pre-load fonts, make any API calls you need to do here
-        // await Font.loadAsync(Entypo.font);
-
         await new Promise((resolve) => setTimeout(resolve, 2000));
       } catch (e) {
         console.log(e);
@@ -46,18 +55,14 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <StatusBar translucent />
-      <PaperProvider>
-        {/* <ApplicationProvider
-          {...eva}
-          theme={!isDarkMode ? eva.light : eva.dark}> */}
+      <PaperProvider theme={!isDarkMode ? CustomLightTheme : CustomDarkTheme}>
         <SheetProvider>
           <NavigationContainer
-            theme={!isDarkMode ? MyLightTheme : MyDarkTheme}
-            onReady={onLayoutRootView}>
+            onReady={onLayoutRootView}
+            theme={!isDarkMode ? LightTheme : DarkTheme}>
             <DrawerNavigator />
           </NavigationContainer>
         </SheetProvider>
-        {/* </ApplicationProvider> */}
       </PaperProvider>
     </SafeAreaProvider>
   );

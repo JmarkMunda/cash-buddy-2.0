@@ -1,6 +1,6 @@
 import React, { SetStateAction, useState } from "react";
 import DropDownPicker, { ValueType } from "react-native-dropdown-picker";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "react-native-paper";
 
 interface IDropdown {
   items: { label: string; value: string }[];

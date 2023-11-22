@@ -1,19 +1,25 @@
 import React from "react";
 import Container from "../../../components/Container";
 import Text from "../../../components/Text";
-import { FlatList, View, StyleSheet, Dimensions } from "react-native";
+import { TouchableOpacity, View, StyleSheet, Dimensions } from "react-native";
 import spacings from "../../../utils/spacings";
 import AppStyles from "../../../utils/styles";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import TransactionCard from "./TransactionCard";
 import { FlashList } from "@shopify/flash-list";
 import { useWalletStore } from "../../../zustand/wallet/store";
+import { useNavigation } from "@react-navigation/native";
 
 const HEIGHT = Dimensions.get("window").height;
 
 const TransactionList = () => {
   const tabBarHeight = useBottomTabBarHeight();
   const records = useWalletStore(({ records }) => records);
+  const navigation = useNavigation();
+
+  const onSeeAllPress = () => {
+    navigation.navigate("Transactions" as never);
+  };
 
   const renderItem = ({ item }) => <TransactionCard item={item} />;
 
@@ -25,10 +31,12 @@ const TransactionList = () => {
 
   return (
     <View style={[AppStyles.flex, { marginBottom: tabBarHeight + 40 }]}>
-      <Container intensity={80} style={[AppStyles.flex, styles.container]}>
+      <Container intensity={50} style={[AppStyles.flex, styles.container]}>
         <View style={styles.transactionHeader}>
           <Text variant="titleMedium">Transactions</Text>
-          <Text variant="titleSmall">See all</Text>
+          <TouchableOpacity onPress={onSeeAllPress}>
+            <Text variant="titleSmall">See all</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={{ minHeight: 2, flex: 1 }}>

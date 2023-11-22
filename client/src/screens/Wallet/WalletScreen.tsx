@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import CardBalance from "./components/CardBalance";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "react-native-paper";
 import LinearContainer from "../../components/LinearContainer";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { add_wallet, minus_wallet } from "../../../assets/images/assets";
@@ -25,7 +25,7 @@ const WalletScreen = () => {
 
   return (
     <LinearContainer
-      colors={[colors.primary, colors.background]}
+      colors={[colors.primaryContainer, colors.surfaceVariant]}
       locations={[0, 1]}
       start={{ x: 0.9, y: 0.1 }}
       end={{ x: 0.1, y: 0.9 }}>

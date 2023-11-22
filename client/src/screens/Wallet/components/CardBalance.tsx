@@ -2,16 +2,13 @@ import React from "react";
 import Text from "../../../components/Text";
 import formatDate from "../../../utils/formatDate";
 import { StyleSheet } from "react-native";
-import { useTheme } from "@react-navigation/native";
 import Card from "../../../components/Card";
-import AppStyles from "../../../utils/styles";
 import spacings from "../../../utils/spacings";
 import { ImageBackground } from "react-native";
 import { card_wallet_bg } from "../../../../assets/images/assets";
 import { useWalletStore } from "../../../zustand/wallet/store";
 
 const CardBalance = () => {
-  const { colors } = useTheme();
   const [cashBalance, bankBalance] = useWalletStore((state) => [
     state.cashBalance,
     state.bankBalance,
@@ -26,7 +23,10 @@ const CardBalance = () => {
         <Text variant="titleMedium" color="white">
           Balance:
         </Text>
-        <Text variant="displaySmall" color="white" style={spacings.my4}>
+        <Text
+          variant="displaySmall"
+          color="white"
+          style={[spacings.my4, { fontWeight: "bold" }]}>
           {`P ${cashBalance}`}
         </Text>
 

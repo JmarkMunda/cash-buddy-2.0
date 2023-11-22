@@ -73,11 +73,10 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
         <ControlInput
           name="amount"
           control={control}
-          label={props.payload?.type}
+          label={props.payload?.type === "cash-in" ? "CASH IN" : "CASH OUT"}
           labelStyle={{ justifyContent: "center" }}
           keyboardType="number-pad"
           placeholder="0"
-          autoFocus
           style={{
             textAlign: "center",
             fontSize: 32,

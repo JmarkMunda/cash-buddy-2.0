@@ -1,8 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle } from "react-native";
 import { Text as PaperText, TextProps } from "react-native-paper";
-
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "react-native-paper";
 
 interface ITextProps extends TextProps<any> {
   children: string;
@@ -14,7 +13,9 @@ const Text = ({ children, color, style, ...props }: ITextProps) => {
   const { colors } = useTheme();
 
   return (
-    <PaperText style={[{ color: color ?? colors.text }, style]} {...props}>
+    <PaperText
+      style={[{ color: color ?? colors.onBackground }, style]}
+      {...props}>
       {children}
     </PaperText>
   );

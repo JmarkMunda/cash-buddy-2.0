@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 import { BlurView } from "expo-blur";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "react-native-paper";
 
 interface IContainer {
   children?: React.ReactNode;

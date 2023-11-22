@@ -11,6 +11,7 @@ import Container from "../../../components/Container";
 import AppStyles from "../../../utils/styles";
 import spacings from "../../../utils/spacings";
 import Text from "../../../components/Text";
+import { useTheme } from "react-native-paper";
 
 interface IButton {
   label: string;
@@ -20,14 +21,15 @@ interface IButton {
 }
 
 const InOutCashButton = ({ label, image, imageStyles, onPress }: IButton) => {
+  const { colors } = useTheme();
   return (
     <ButtonContainer onPress={onPress}>
       <Container
-        intensity={80}
+        intensity={50}
         radius={16}
         style={[AppStyles.flex_center, spacings.p24]}>
         <Image source={image} style={[styles.image, imageStyles]} />
-        <Text category="label" color="#696969">
+        <Text variant="labelLarge" color={colors.inverseSurface}>
           {label}
         </Text>
       </Container>
@@ -37,8 +39,8 @@ const InOutCashButton = ({ label, image, imageStyles, onPress }: IButton) => {
 
 const styles = StyleSheet.create({
   image: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
   },
 });
 

@@ -4,8 +4,8 @@ import { TextInput, View, TextStyle } from "react-native";
 import { useController, UseControllerProps } from "react-hook-form";
 import { FormValues } from "../types";
 import Text from "../../../components/Text";
-import { useTheme } from "@react-navigation/native";
 import { TextInputProps } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 
 interface IControlInput extends UseControllerProps<FormValues> {
   label?: string;
@@ -23,7 +23,7 @@ const ControlInput = (props: ControlInputType) => {
     <>
       {props.label && (
         <View style={[{ flexDirection: "row" }, props.labelStyle]}>
-          <Text>{props.label}</Text>
+          <Text variant="labelMedium">{props.label}</Text>
           {!!fieldState?.error?.message && (
             <Text style={{ color: "red" }}>*</Text>
           )}
@@ -33,7 +33,7 @@ const ControlInput = (props: ControlInputType) => {
         value={field.value.toString()}
         onChangeText={field.onChange}
         placeholder={props.placeholder}
-        placeholderTextColor={colors.description}
+        placeholderTextColor={colors.onSurfaceVariant}
         {...props}
       />
     </>

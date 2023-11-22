@@ -39,6 +39,7 @@ const DrawerNavigator = () => {
 
   return (
     <Drawer.Navigator
+      initialRouteName="Main"
       drawerContent={CustomDrawerContent}
       screenOptions={{
         headerShown: false,

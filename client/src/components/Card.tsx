@@ -1,8 +1,8 @@
 import React from "react";
-import { useTheme } from "@react-navigation/native";
 import { View, ViewProps, StyleSheet } from "react-native";
 import shadows from "../utils/shadows";
 import spacings from "../utils/spacings";
+import { useTheme } from "react-native-paper";
 
 interface ICardProps extends ViewProps {
   children: React.ReactNode;

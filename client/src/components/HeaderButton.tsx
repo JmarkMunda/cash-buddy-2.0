@@ -1,7 +1,7 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, StyleProp, ViewStyle } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "react-native-paper";
 
 interface IHeaderButton {
   name: any;
@@ -28,7 +28,7 @@ const HeaderButton = ({
       style={({ pressed }) => [pressed && { opacity: 0.5 }, containerStyle]}
       onPress={onPress}
       {...props}>
-      <Ionicons name={name} size={size} color={colors.text} />
+      <Ionicons name={name} size={size} color={colors.onBackground} />
     </Pressable>
   );
 };
