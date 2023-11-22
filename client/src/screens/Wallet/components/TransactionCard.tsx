@@ -22,9 +22,11 @@ const TransactionCard = ({ item }: ITransactionCard) => {
           <Text variant="labelLarge" color={color}>
             {item.tag}
           </Text>
-          <Text variant="labelMedium" color={colors.onSurfaceVariant}>
-            {item.notes}
-          </Text>
+          {item.notes && (
+            <Text variant="labelMedium" color={colors.onSurfaceVariant}>
+              {item.notes}
+            </Text>
+          )}
         </View>
 
         <View>

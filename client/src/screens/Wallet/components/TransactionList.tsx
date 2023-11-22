@@ -18,7 +18,7 @@ const TransactionList = () => {
   const navigation = useNavigation();
 
   const onSeeAllPress = () => {
-    navigation.navigate("Transactions" as never);
+    navigation.navigate("Transactions");
   };
 
   const renderItem = ({ item }) => <TransactionCard item={item} />;

@@ -23,6 +23,7 @@ const Container = ({
     <BlurView
       tint={!dark ? "light" : "dark"}
       intensity={intensity}
+      blurReductionFactor={116}
       style={[{ borderRadius: radius, overflow: "hidden" }, style]}
       {...props}>
       {children}

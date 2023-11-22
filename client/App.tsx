@@ -55,15 +55,18 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <StatusBar translucent />
-      <PaperProvider theme={!isDarkMode ? CustomLightTheme : CustomDarkTheme}>
-        <SheetProvider>
+      <SheetProvider>
+        <PaperProvider
+        //  theme={!isDarkMode ? CustomLightTheme : CustomDarkTheme}
+        >
           <NavigationContainer
             onReady={onLayoutRootView}
-            theme={!isDarkMode ? LightTheme : DarkTheme}>
+            // theme={!isDarkMode ? LightTheme : DarkTheme}
+          >
             <DrawerNavigator />
           </NavigationContainer>
-        </SheetProvider>
-      </PaperProvider>
+        </PaperProvider>
+      </SheetProvider>
     </SafeAreaProvider>
   );
 }
