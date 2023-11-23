@@ -14,6 +14,8 @@ import { FormValues } from "../types";
 import { useForm } from "react-hook-form";
 import ControlDropdown from "./ControlDropdown";
 import { defaultTags } from "../../../utils/constants";
+import { alertAsync } from "../../../components/ToastAlert";
+import { DropdownAlertType } from "react-native-dropdownalert";
 
 interface IWalletSheetProps {
   type: "cash-in" | "cash-out";
@@ -46,8 +48,21 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
       setValue(null);
       reset();
       SheetManager.hide("wallet-sheet");
+      alertAsync({
+        type: DropdownAlertType.Success,
+        title: "Success!",
+        message: "Transaction complete",
+      });
     }
-  }, [formState.isSubmitSuccessful, reset]);
+
+    if (Object.keys(formState.errors).length) {
+      alertAsync({
+        type: DropdownAlertType.Error,
+        title: "Failed!",
+        message: Object.values(formState.errors)[0]?.message,
+      });
+    }
+  }, [formState.isSubmitSuccessful, formState.errors, reset]);
 
   const onSubmit = async (data: FormValues) => {
     if (props.payload?.type === "cash-in") {

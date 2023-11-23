@@ -16,6 +16,7 @@ import { StatusBar } from "expo-status-bar";
 import { useFonts, Signika_400Regular } from "@expo-google-fonts/signika";
 import { SheetProvider } from "react-native-actions-sheet";
 import "./src/utils/sheets";
+import { ToastAlert } from "./src/components/ToastAlert";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -56,17 +57,15 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar translucent />
       <SheetProvider>
-        <PaperProvider
-        //  theme={!isDarkMode ? CustomLightTheme : CustomDarkTheme}
-        >
+        <PaperProvider theme={!isDarkMode ? CustomLightTheme : CustomDarkTheme}>
           <NavigationContainer
             onReady={onLayoutRootView}
-            // theme={!isDarkMode ? LightTheme : DarkTheme}
-          >
+            theme={!isDarkMode ? LightTheme : DarkTheme}>
             <DrawerNavigator />
           </NavigationContainer>
         </PaperProvider>
       </SheetProvider>
+      <ToastAlert />
     </SafeAreaProvider>
   );
 }

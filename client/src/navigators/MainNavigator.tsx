@@ -9,7 +9,9 @@ const Stack = createNativeStackNavigator();
 // Stack of all screens
 const MainNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="BottomTabNavigator">
+    <Stack.Navigator
+      initialRouteName="BottomTabNavigator"
+      screenOptions={{ animation: "default" }}>
       <Stack.Screen
         name="BottomTabNavigator"
         component={BottomTabNavigator}
