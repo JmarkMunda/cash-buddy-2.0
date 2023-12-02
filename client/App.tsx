@@ -6,6 +6,7 @@ import {
   DarkTheme as RNDarkTheme,
 } from "@react-navigation/native";
 import { PaperProvider, adaptNavigationTheme } from "react-native-paper";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import DrawerNavigator from "./src/navigators/DrawerNavigator";
 import { useSettingsStore } from "./src/zustand/settings/store";
@@ -56,16 +57,18 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <StatusBar translucent />
-      <SheetProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <PaperProvider theme={!isDarkMode ? CustomLightTheme : CustomDarkTheme}>
-          <NavigationContainer
-            onReady={onLayoutRootView}
-            theme={!isDarkMode ? LightTheme : DarkTheme}>
-            <DrawerNavigator />
-          </NavigationContainer>
+          <SheetProvider>
+            <NavigationContainer
+              onReady={onLayoutRootView}
+              theme={!isDarkMode ? LightTheme : DarkTheme}>
+              <DrawerNavigator />
+            </NavigationContainer>
+          </SheetProvider>
         </PaperProvider>
-      </SheetProvider>
-      <ToastAlert />
+        <ToastAlert />
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   );
 }

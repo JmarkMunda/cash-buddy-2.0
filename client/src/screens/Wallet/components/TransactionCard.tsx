@@ -16,7 +16,7 @@ const TransactionCard = ({ item }: ITransactionCard) => {
   const color = isExpense ? "#d35656" : "#499ce0";
 
   return (
-    <Container style={[spacings.my8, spacings.p16]} intensity={80}>
+    <Container style={[spacings.my8, spacings.p16]} opacity={0.8}>
       <View style={styles.contentContainer}>
         <View>
           <Text variant="labelLarge" color={color}>

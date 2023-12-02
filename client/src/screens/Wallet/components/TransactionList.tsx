@@ -31,7 +31,7 @@ const TransactionList = () => {
 
   return (
     <View style={[AppStyles.flex, { marginBottom: tabBarHeight + 40 }]}>
-      <Container intensity={50} style={[AppStyles.flex, styles.container]}>
+      <Container opacity={0.5} style={[AppStyles.flex, styles.container]}>
         <View style={styles.transactionHeader}>
           <Text variant="titleMedium">Transactions</Text>
           <TouchableOpacity onPress={onSeeAllPress}>

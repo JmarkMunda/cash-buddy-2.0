@@ -10,53 +10,21 @@ export const fontConfig = {
   fontFamily: "Signika_400Regular",
 };
 
-export const MyLightTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: "rgb(185, 238, 164)",
-    secondary: "rgb(246, 248, 122)",
-    tertiary: "rgb(204, 248, 187)",
-    background: "rgb(201, 201, 201)",
-    card: "rgb(255, 255, 255)",
-    text: "rgb(28, 28, 30)",
-    description: "rgb(173, 173, 173)",
-    border: "rgb(199, 199, 204)",
-    notification: "rgb(255, 69, 58)",
-  },
-};
-
-export const MyDarkTheme = {
-  // ...DarkTheme,
-  colors: {
-    // ...DarkTheme.colors,
-    primary: "rgb(26, 70, 53)",
-    secondary: "rgb(246, 248, 122)",
-    tertiary: "rgb(3, 20, 7)",
-    background: "rgb(43, 43, 43)",
-    card: "rgb(24, 24, 24)",
-    text: "rgb(255, 255, 255)",
-    description: "rgb(173, 173, 173)",
-    border: "rgb(199, 199, 204)",
-    notification: "rgb(255, 69, 58)",
-  },
-};
-
 export const CustomLightTheme = {
   ...DefaultTheme,
   fonts: configureFonts({ config: fontConfig }),
   colors: {
     primary: "rgb(50, 107, 36)",
-    onPrimary: "rgb(255, 255, 255)",
+    onPrimary: "rgb(247, 255, 244)",
     primaryContainer: "rgb(179, 243, 155)",
     onPrimaryContainer: "rgb(2, 33, 0)",
     secondary: "rgb(104, 71, 192)",
-    onSecondary: "rgb(255, 255, 255)",
-    secondaryContainer: "rgb(232, 221, 255)",
-    onSecondaryContainer: "rgb(33, 0, 93)",
-    tertiary: "rgb(121, 89, 0)",
+    onSecondary: "rgb(253, 252, 255)",
+    secondaryContainer: "rgb(82, 92, 126)",
+    onSecondaryContainer: "rgb(238, 230, 255)",
+    tertiary: "#bb8f4d",
     onTertiary: "rgb(255, 255, 255)",
-    tertiaryContainer: "rgb(255, 223, 160)",
+    tertiaryContainer: "rgb(255, 249, 232)",
     onTertiaryContainer: "rgb(38, 26, 0)",
     error: "rgb(186, 26, 26)",
     onError: "rgb(255, 255, 255)",
@@ -99,11 +67,11 @@ export const CustomDarkTheme = {
     onPrimaryContainer: "rgb(179, 243, 155)",
     secondary: "rgb(206, 189, 255)",
     onSecondary: "rgb(57, 5, 144)",
-    secondaryContainer: "rgb(80, 43, 167)",
+    secondaryContainer: "rgb(45, 44, 61)",
     onSecondaryContainer: "rgb(232, 221, 255)",
-    tertiary: "rgb(248, 189, 42)",
+    tertiary: "rgb(236, 202, 116)",
     onTertiary: "rgb(64, 45, 0)",
-    tertiaryContainer: "rgb(92, 67, 0)",
+    tertiaryContainer: "rgb(63, 55, 48)",
     onTertiaryContainer: "rgb(255, 223, 160)",
     error: "rgb(255, 180, 171)",
     onError: "rgb(105, 0, 5)",
@@ -136,4 +104,4 @@ export const CustomDarkTheme = {
   },
 };
 
-export type Theme = typeof MyLightTheme | typeof MyDarkTheme;
+// export type Theme = typeof MyLightTheme | typeof MyDarkTheme;

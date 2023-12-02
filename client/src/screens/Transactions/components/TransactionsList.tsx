@@ -3,25 +3,15 @@ import { View, StyleSheet } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import TransactionCard from "./TransactionCard";
 import Text from "../../../components/Text";
-import { useWalletStore } from "../../../zustand/wallet/store";
 
-// onLayout={(e) => console.log(e.nativeEvent.layout.height)}
-
-const TransactionsList = () => {
-  const records = useWalletStore(({ records }) => records);
-
-  const renderItem = ({ item }) => (
-    <View>
-      <TransactionCard item={item} />
-    </View>
-  );
+const TransactionsList = ({ records }) => {
+  const renderItem = ({ item }) => <TransactionCard item={item} />;
 
   return (
     <View style={styles.container}>
-      <Text>SUB-HEADER</Text>
       <FlashList
         data={records}
-        estimatedItemSize={70}
+        estimatedItemSize={96}
         renderItem={renderItem}
       />
     </View>
@@ -32,7 +22,6 @@ const styles = StyleSheet.create({
   container: {
     minHeight: 2,
     flex: 1,
-    padding: 16,
   },
 });
 

@@ -25,7 +25,7 @@ const InOutCashButton = ({ label, image, imageStyles, onPress }: IButton) => {
   return (
     <ButtonContainer onPress={onPress}>
       <Container
-        intensity={50}
+        opacity={0.5}
         radius={16}
         style={[AppStyles.flex_center, spacings.p24]}>
         <Image source={image} style={[styles.image, imageStyles]} />

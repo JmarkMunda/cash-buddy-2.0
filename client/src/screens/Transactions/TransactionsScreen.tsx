@@ -1,17 +1,39 @@
 import React from "react";
-import Text from "../../components/Text";
 import { View, StyleSheet } from "react-native";
+import { useWalletStore } from "../../zustand/wallet/store";
+import { useModalize } from "react-native-modalize";
+import Text from "../../components/Text";
 import Container from "../../components/Container";
-import { useTheme } from "react-native-paper";
 import TransactionsList from "./components/TransactionsList";
+import AppStyles from "../../utils/styles";
+import FilterModal from "./components/FilterModal";
+import Header from "./components/Header";
 
 const TransactionsScreen = () => {
-  const { colors } = useTheme();
+  const [records, filteredRecords, filters] = useWalletStore(
+    ({ records, filteredRecords, filters }) => [
+      records,
+      filteredRecords,
+      filters,
+    ]
+  );
+  const { ref, open, close } = useModalize();
 
   return (
-    <Container style={[{ backgroundColor: colors.primary }, styles.container]}>
-      <Text variant="headlineSmall">Transaction History</Text>
-      <TransactionsList />
+    <Container style={[styles.container]}>
+      {/* ---- HEADER ----- */}
+      <Header onFilterPress={open} />
+      {filters && (
+        <View style={{ alignSelf: "flex-end" }}>
+          <Text variant="labelLarge" color="gray">
+            {`Showing ${filteredRecords.length} out of ${records.length}`}
+          </Text>
+        </View>
+      )}
+      {/* ------- LIST ----- */}
+      <TransactionsList records={!filters ? records : filteredRecords} />
+      {/* ------- MODALS ------ */}
+      <FilterModal ref={ref} handleClose={close} />
     </Container>
   );
 };
@@ -19,6 +41,7 @@ const TransactionsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    ...AppStyles.container,
   },
 });
 

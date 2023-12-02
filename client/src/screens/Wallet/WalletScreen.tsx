@@ -1,15 +1,24 @@
 import React, { useCallback, useState } from "react";
 import CardBalance from "./components/CardBalance";
-import { useTheme } from "react-native-paper";
+import { Switch, useTheme } from "react-native-paper";
 import LinearContainer from "../../components/LinearContainer";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { add_wallet, minus_wallet } from "../../../assets/images/assets";
 import TransactionList from "./components/TransactionList";
 import { SheetManager } from "react-native-actions-sheet";
 import InOutCashButton from "./components/InOutCashButton";
+import Text from "../../components/Text";
+import WalletBalance from "./components/WalletBalance";
+import { useSettingsStore } from "../../zustand/settings/store";
 
 const WalletScreen = () => {
   const { colors } = useTheme();
+  const [isBankView, toggleBankView] = useSettingsStore(
+    ({ isBankView, toggleBankView }) => [isBankView, toggleBankView]
+  );
+  const bgColor = isBankView
+    ? [colors.primaryContainer, colors.background]
+    : [colors.tertiary, colors.background];
 
   const onInsertCashPress = useCallback(async () => {
     await SheetManager.show("wallet-sheet", {
@@ -25,13 +34,27 @@ const WalletScreen = () => {
 
   return (
     <LinearContainer
-      colors={[colors.primaryContainer, colors.surfaceVariant]}
+      colors={bgColor}
       locations={[0, 1]}
       start={{ x: 0.9, y: 0.1 }}
       end={{ x: 0.1, y: 0.9 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Balance */}
-        <CardBalance />
+        {isBankView ? (
+          <CardBalance isBankView={isBankView} />
+        ) : (
+          <WalletBalance />
+        )}
+        <View
+          style={{
+            flexDirection: "row",
+            flex: 1,
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}>
+          <Text>{!isBankView ? "Wallet" : "Bank"}</Text>
+          <Switch value={isBankView} onValueChange={toggleBankView} />
+        </View>
         {/* Buttons */}
         <View style={styles.walletBtnContainer}>
           <InOutCashButton

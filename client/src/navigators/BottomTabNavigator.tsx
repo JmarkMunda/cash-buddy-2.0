@@ -10,6 +10,7 @@ import HeaderButton from "../components/HeaderButton";
 import shadows from "../utils/shadows";
 import Container from "../components/Container";
 import { Platform, StyleSheet } from "react-native";
+import { useSettingsStore } from "../zustand/settings/store";
 
 type IconProps = {
   focused: boolean;
@@ -21,6 +22,7 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
   const { colors } = useTheme();
+  const isBankView = useSettingsStore(({ isBankView }) => isBankView);
 
   const tabs = [
     {
@@ -50,15 +52,15 @@ const BottomTabNavigator = () => {
       initialRouteName="Wallet"
       screenOptions={(props) => ({
         headerTransparent: true,
-        headerLeft: (btnProps) => (
-          <HeaderButton
-            name="ios-chevron-back"
-            size={32}
-            onPress={() => {}}
-            containerStyle={{ marginLeft: 16 }}
-            {...btnProps}
-          />
-        ),
+        // headerLeft: (btnProps) => (
+        //   <HeaderButton
+        //     name="ios-chevron-back"
+        //     size={32}
+        //     onPress={() => {}}
+        //     containerStyle={{ marginLeft: 16 }}
+        //     {...btnProps}
+        //   />
+        // ),
         headerRight: (btnProps) => (
           <HeaderButton
             name="settings-outline"
@@ -82,12 +84,12 @@ const BottomTabNavigator = () => {
           height: Platform.OS === "android" ? 80 : 90,
           borderTopWidth: 0,
         },
-        tabBarActiveBackgroundColor: colors.primary,
+        tabBarActiveBackgroundColor: colors.secondaryContainer,
         tabBarActiveTintColor: colors.background,
         tabBarInactiveTintColor: colors.onBackground,
         tabBarBackground: () => (
           <Container
-            intensity={50}
+            opacity={0.8}
             radius={99}
             style={StyleSheet.absoluteFill}
           />

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
 import ActionSheet, {
   SheetManager,
   SheetProps,
@@ -16,12 +15,15 @@ import ControlDropdown from "./ControlDropdown";
 import { defaultTags } from "../../../utils/constants";
 import { alertAsync } from "../../../components/ToastAlert";
 import { DropdownAlertType } from "react-native-dropdownalert";
+import Container from "../../../components/Container";
+import { useTheme } from "react-native-paper";
 
 interface IWalletSheetProps {
   type: "cash-in" | "cash-out";
 }
 
 const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
+  const { colors } = useTheme();
   // Global State
   const [loading, insertCash, takeOutCash, insertRecord] = useWalletStore(
     ({ loading, insertCash, takeOutCash, insertRecord }) => [
@@ -74,8 +76,8 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
   };
 
   return (
-    <ActionSheet id={props.sheetId}>
-      <View style={AppStyles.container}>
+    <ActionSheet id={props.sheetId} useBottomSafeAreaPadding>
+      <Container style={AppStyles.container}>
         <ControlDropdown
           value={value}
           setValue={setValue}
@@ -115,22 +117,14 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
         <Button
           mode="contained"
           onPress={handleSubmit(onSubmit)}
-          loading={loading}>
+          loading={loading}
+          textColor="white"
+          buttonColor={colors.secondaryContainer}>
           {props.payload?.type === "cash-in" ? "Insert" : "Take out"}
         </Button>
-      </View>
+      </Container>
     </ActionSheet>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    borderWidth: 1,
-    borderColor: "rgb(122, 122, 122)",
-    borderRadius: 8,
-    width: Dimensions.get("window").width / 2,
-    fontSize: 50,
-  },
-});
 
 export default WalletSheet;
