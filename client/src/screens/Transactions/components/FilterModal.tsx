@@ -1,8 +1,8 @@
 import React, { forwardRef, useState } from "react";
-import { Chip } from "react-native-paper";
+import { Chip, useTheme } from "react-native-paper";
 import Modalize from "../../../components/Modalize";
 import Text from "../../../components/Text";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { defaultTags } from "../../../utils/constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
@@ -18,6 +18,7 @@ const FilterModal = forwardRef((props: IFilterModal, ref) => {
     ({ filterByTags, applyFilters }) => [filterByTags, applyFilters]
   );
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const { colors } = useTheme();
 
   const handleFilterSelect = (value: string) => {
     const copyFilters = [...selectedTags];
@@ -36,6 +37,14 @@ const FilterModal = forwardRef((props: IFilterModal, ref) => {
     filterByTags(selectedTags);
   };
 
+  const handleResetFilter = () => {
+    applyFilters(null);
+    setSelectedTags([]);
+    // filterByTags([])
+  };
+
+  // TODO: Sorting (ASC, DESC)
+
   return (
     <Modalize
       ref={ref}
@@ -43,16 +52,11 @@ const FilterModal = forwardRef((props: IFilterModal, ref) => {
         <TouchableOpacity
           style={{ alignSelf: "flex-end" }}
           hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}>
-          <AntDesign name="closesquare" size={24} color="black" />
+          <AntDesign name="closesquare" size={24} color={colors.onBackground} />
         </TouchableOpacity>
       }>
       <Text variant="labelLarge">Tags</Text>
-      <View
-        style={{
-          flexDirection: "row",
-          flexWrap: "wrap",
-          gap: 8,
-        }}>
+      <View style={styles.tagsContainer}>
         {defaultTags.map((tag) => (
           <Chip
             key={tag.label}
@@ -65,12 +69,27 @@ const FilterModal = forwardRef((props: IFilterModal, ref) => {
 
       <Button
         mode="contained-tonal"
-        style={{ marginTop: 16 }}
+        style={{ marginVertical: 16 }}
         onPress={handleApplyFilter}>
         Apply
       </Button>
+      <Button
+        mode="outlined"
+        textColor={colors.outline}
+        onPress={handleResetFilter}>
+        Reset
+      </Button>
     </Modalize>
   );
+});
+
+const styles = StyleSheet.create({
+  tagsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginVertical: 8,
+  },
 });
 
 export default FilterModal;

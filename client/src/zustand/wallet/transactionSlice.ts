@@ -1,6 +1,7 @@
 import { StateCreator } from "zustand";
 
 type RecordType = {
+  id: string;
   type: "cash-in" | "cash-out";
   tag: string;
   notes?: string;
@@ -21,7 +22,7 @@ type State = {
 
 type Actions = {
   insertRecord: (details: RecordType) => void;
-  deleteRecord: () => void;
+  deleteRecord: (id: string) => void;
   applyFilters: (filters: FilterType | null) => void;
   filterByTags: (tags: string[]) => void;
   searchByNote: (text: string) => void;
@@ -39,7 +40,10 @@ const createTransactionSlice: StateCreator<TransactionSliceType> = (set) => ({
   ...initialState,
   insertRecord: (details) =>
     set((state) => ({ records: [...state.records, details] })),
-  deleteRecord: () => set((state) => ({ records: [] })),
+  deleteRecord: (id: string) =>
+    set((state) => ({
+      records: state.records.filter((record) => record.id !== id),
+    })),
   applyFilters: (filters: FilterType) => set({ filters }),
   filterByTags: (tags: string[]) =>
     set((state) => {

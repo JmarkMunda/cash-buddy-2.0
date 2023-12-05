@@ -13,7 +13,7 @@ interface ITransactionCard {
 const TransactionCard = ({ item }: ITransactionCard) => {
   const { colors } = useTheme();
   const isExpense = item.type === "cash-out";
-  const color = isExpense ? "#d35656" : "#499ce0";
+  const color = isExpense ? colors.error : colors.primary;
 
   return (
     <Container style={[spacings.my8, spacings.p16]} opacity={0.8}>

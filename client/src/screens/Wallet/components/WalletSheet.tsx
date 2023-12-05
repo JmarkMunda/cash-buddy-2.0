@@ -17,6 +17,7 @@ import { alertAsync } from "../../../components/ToastAlert";
 import { DropdownAlertType } from "react-native-dropdownalert";
 import Container from "../../../components/Container";
 import { useTheme } from "react-native-paper";
+import { v1 as uuidv1 } from "uuid";
 
 interface IWalletSheetProps {
   type: "cash-in" | "cash-out";
@@ -72,7 +73,12 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
     } else {
       await takeOutCash(+data.amount);
     }
-    insertRecord({ type: props.payload?.type, date: new Date(), ...data });
+    insertRecord({
+      id: uuidv1(),
+      type: props.payload?.type,
+      date: new Date(),
+      ...data,
+    });
   };
 
   return (

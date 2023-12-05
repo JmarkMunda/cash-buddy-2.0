@@ -1,4 +1,5 @@
 import "react-native-gesture-handler";
+import "react-native-get-random-values";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   NavigationContainer,
