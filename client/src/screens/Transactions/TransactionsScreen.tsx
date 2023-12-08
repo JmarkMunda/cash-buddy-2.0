@@ -8,6 +8,7 @@ import TransactionsList from "./components/TransactionsList";
 import AppStyles from "../../utils/styles";
 import FilterModal from "./components/FilterModal";
 import Header from "./components/Header";
+import LinearContainer from "../../components/LinearContainer";
 
 const TransactionsScreen = () => {
   const [records, filteredRecords, filters] = useWalletStore(
@@ -20,7 +21,7 @@ const TransactionsScreen = () => {
   const { ref, open, close } = useModalize();
 
   return (
-    <Container style={[styles.container]}>
+    <LinearContainer style={[styles.container]}>
       {/* ---- HEADER ----- */}
       <Header onFilterPress={open} />
       {filters && (
@@ -34,7 +35,7 @@ const TransactionsScreen = () => {
       <TransactionsList records={!filters ? records : filteredRecords} />
       {/* ------- MODALS ------ */}
       <FilterModal ref={ref} handleClose={close} />
-    </Container>
+    </LinearContainer>
   );
 };
 

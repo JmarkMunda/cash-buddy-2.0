@@ -4,13 +4,15 @@ import { Ionicons, FontAwesome, Entypo } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
 import DashboardScreen from "../screens/DashboardScreen";
 import HistoryScreen from "../screens/HistoryScreen";
-import CalculatorScreen from "../screens/CalculatorScreen";
 import WalletScreen from "../screens/Wallet/WalletScreen";
+import AccountSettingsScreen from "../screens/AccountSettingsScreen";
 import HeaderButton from "../components/HeaderButton";
 import shadows from "../utils/shadows";
 import Container from "../components/Container";
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { useSettingsStore } from "../zustand/settings/store";
+import AppStyles from "../utils/styles";
+import spacings from "../utils/spacings";
 
 type IconProps = {
   focused: boolean;
@@ -41,8 +43,8 @@ const BottomTabNavigator = () => {
       icon: (props: IconProps) => <FontAwesome name="history" {...props} />,
     },
     {
-      name: "Calculator",
-      component: CalculatorScreen,
+      name: "Account Settings",
+      component: AccountSettingsScreen,
       icon: (props: IconProps) => <Entypo name="calculator" {...props} />,
     },
   ];
@@ -52,23 +54,21 @@ const BottomTabNavigator = () => {
       initialRouteName="Wallet"
       screenOptions={(props) => ({
         headerTransparent: true,
-        // headerLeft: (btnProps) => (
-        //   <HeaderButton
-        //     name="ios-chevron-back"
-        //     size={32}
-        //     onPress={() => {}}
-        //     containerStyle={{ marginLeft: 16 }}
-        //     {...btnProps}
-        //   />
-        // ),
         headerRight: (btnProps) => (
-          <HeaderButton
-            name="settings-outline"
-            size={32}
-            onPress={() => props.navigation.openDrawer()}
-            containerStyle={{ marginRight: 16 }}
-            {...btnProps}
-          />
+          <View style={[AppStyles.flex_row, spacings.mx16, { gap: 16 }]}>
+            <HeaderButton
+              name="calculator-outline"
+              size={32}
+              onPress={() => props.navigation.navigate("Calculator")}
+              {...btnProps}
+            />
+            <HeaderButton
+              name="settings-outline"
+              size={32}
+              onPress={() => props.navigation.openDrawer()}
+              {...btnProps}
+            />
+          </View>
         ),
         tabBarItemStyle: {
           height: Platform.OS === "android" ? 80 : 90,
@@ -79,7 +79,7 @@ const BottomTabNavigator = () => {
           ...shadows.md,
           borderRadius: 99,
           position: "absolute",
-          bottom: 10,
+          bottom: 0,
           margin: 24,
           height: Platform.OS === "android" ? 80 : 90,
           borderTopWidth: 0,
