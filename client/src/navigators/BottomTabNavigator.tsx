@@ -77,6 +77,7 @@ const BottomTabNavigator = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           ...shadows.md,
+          // backgroundColor: "transparent",
           borderRadius: 99,
           position: "absolute",
           bottom: 0,

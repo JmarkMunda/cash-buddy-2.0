@@ -5,18 +5,21 @@ interface IButtonContainer {
   children: React.ReactNode;
   onPress?: () => void;
   containerStyle?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 }
 
 const ButtonContainer = ({
   children,
   onPress,
   containerStyle,
+  disabled,
   ...props
 }: IButtonContainer) => {
   return (
     <Pressable
       style={({ pressed }) => [pressed && styles.pressed, containerStyle]}
       onPress={onPress}
+      disabled={disabled}
       {...props}>
       {children}
     </Pressable>
