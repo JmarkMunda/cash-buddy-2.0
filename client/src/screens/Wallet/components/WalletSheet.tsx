@@ -18,22 +18,19 @@ import { DropdownAlertType } from "react-native-dropdownalert";
 import Container from "../../../components/Container";
 import { useTheme } from "react-native-paper";
 import { v1 as uuidv1 } from "uuid";
+import { useTransactionsStore } from "../../../zustand/transactions/store";
 
 interface IWalletSheetProps {
-  type: "cash-in" | "cash-out";
+  type: "incomes" | "expenses";
 }
 
 const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
   const { colors } = useTheme();
   // Global State
-  const [loading, insertCash, takeOutCash, insertRecord] = useWalletStore(
-    ({ loading, insertCash, takeOutCash, insertRecord }) => [
-      loading,
-      insertCash,
-      takeOutCash,
-      insertRecord,
-    ]
+  const [loading, insertCash, takeOutCash] = useWalletStore(
+    ({ loading, insertCash, takeOutCash }) => [loading, insertCash, takeOutCash]
   );
+  const insertRecord = useTransactionsStore(({ insertRecord }) => insertRecord);
   // Local State
   const [value, setValue] = useState(null);
   // Form validation
@@ -68,7 +65,7 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
   }, [formState.isSubmitSuccessful, formState.errors, reset]);
 
   const onSubmit = async (data: FormValues) => {
-    if (props.payload?.type === "cash-in") {
+    if (props.payload?.type === "incomes") {
       await insertCash(+data.amount);
     } else {
       await takeOutCash(+data.amount);
@@ -96,7 +93,7 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
         <ControlInput
           name="amount"
           control={control}
-          label={props.payload?.type === "cash-in" ? "CASH IN" : "CASH OUT"}
+          label={props.payload?.type === "incomes" ? "CASH IN" : "CASH OUT"}
           labelStyle={{ justifyContent: "center" }}
           keyboardType="number-pad"
           placeholder="0"
@@ -126,7 +123,7 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
           loading={loading}
           textColor="white"
           buttonColor={colors.secondaryContainer}>
-          {props.payload?.type === "cash-in" ? "Insert" : "Take out"}
+          {props.payload?.type === "incomes" ? "Insert" : "Take out"}
         </Button>
       </Container>
     </ActionSheet>

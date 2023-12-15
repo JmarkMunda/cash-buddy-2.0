@@ -7,6 +7,7 @@ import { useSettingsStore } from "../zustand/settings/store";
 import { useTheme } from "react-native-paper";
 import HeaderButton from "../components/HeaderButton";
 import CalculatorScreen from "../screens/Calculator/CalculatorScreen";
+import CategoriesScreen from "../screens/Categories/CategoriesScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,8 +39,13 @@ const MainNavigator = () => {
         component={BottomTabNavigator}
         options={{ headerShown: false, headerBackTitleVisible: false }}
       />
-      <Stack.Screen name="Calculator" component={CalculatorScreen} />
+      <Stack.Screen
+        name="Calculator"
+        component={CalculatorScreen}
+        options={{ animation: "fade" }}
+      />
       <Stack.Screen name="Transactions" component={TransactionsScreen} />
+      <Stack.Screen name="Categories" component={CategoriesScreen} />
     </Stack.Navigator>
   );
 };

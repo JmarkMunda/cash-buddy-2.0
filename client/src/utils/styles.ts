@@ -16,6 +16,9 @@ const AppStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  just_center: {
+    justifyContent: "center",
+  },
   just_between: {
     justifyContent: "space-between",
   },

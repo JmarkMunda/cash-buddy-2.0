@@ -3,15 +3,15 @@ import { View, StyleSheet } from "react-native";
 import { useWalletStore } from "../../zustand/wallet/store";
 import { useModalize } from "react-native-modalize";
 import Text from "../../components/Text";
-import Container from "../../components/Container";
 import TransactionsList from "./components/TransactionsList";
 import AppStyles from "../../utils/styles";
 import FilterModal from "./components/FilterModal";
 import Header from "./components/Header";
 import LinearContainer from "../../components/LinearContainer";
+import { useTransactionsStore } from "../../zustand/transactions/store";
 
 const TransactionsScreen = () => {
-  const [records, filteredRecords, filters] = useWalletStore(
+  const [records, filteredRecords, filters] = useTransactionsStore(
     ({ records, filteredRecords, filters }) => [
       records,
       filteredRecords,

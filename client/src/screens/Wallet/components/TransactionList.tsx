@@ -9,12 +9,13 @@ import TransactionCard from "./TransactionCard";
 import { FlashList } from "@shopify/flash-list";
 import { useWalletStore } from "../../../zustand/wallet/store";
 import { useNavigation } from "@react-navigation/native";
+import { useTransactionsStore } from "../../../zustand/transactions/store";
 
 const HEIGHT = Dimensions.get("window").height;
 
 const TransactionList = () => {
   const tabBarHeight = useBottomTabBarHeight();
-  const records = useWalletStore(({ records }) => records);
+  const records = useTransactionsStore(({ records }) => records);
   const navigation = useNavigation();
 
   const onSeeAllPress = () => {

@@ -6,17 +6,15 @@ import TransactionCard from "./TransactionCard";
 import Text from "../../../components/Text";
 import { useTheme } from "react-native-paper";
 import { useWalletStore } from "../../../zustand/wallet/store";
-import { RecordType } from "../../../zustand/wallet/transactionSlice";
+import { RecordType } from "../../../zustand/transactions/transactionSlice";
+import { useTransactionsStore } from "../../../zustand/transactions/store";
 
 const TransactionsList = ({ records }) => {
   const { colors } = useTheme();
-  const [deleteRecord, takeOutCash, insertCash] = useWalletStore(
-    ({ deleteRecord, takeOutCash, insertCash }) => [
-      deleteRecord,
-      takeOutCash,
-      insertCash,
-    ]
+  const [takeOutCash, insertCash] = useWalletStore(
+    ({ takeOutCash, insertCash }) => [takeOutCash, insertCash]
   );
+  const deleteRecord = useTransactionsStore(({ deleteRecord }) => deleteRecord);
 
   const hiddenData = [
     {
@@ -29,12 +27,12 @@ const TransactionsList = ({ records }) => {
       color: colors.error,
       handlePress: (item: RecordType) => {
         const { id, amount } = item;
-        if (item.type === "cash-in") {
+        if (item.type === "incomes") {
           takeOutCash(+amount);
         } else {
           insertCash(+amount);
         }
-        deleteRecord(id);
+        deleteRecord(item);
       },
     },
   ];

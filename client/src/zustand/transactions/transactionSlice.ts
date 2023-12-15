@@ -2,7 +2,7 @@ import { StateCreator } from "zustand";
 
 type RecordType = {
   id: string;
-  type: "cash-in" | "cash-out";
+  type: "incomes" | "expenses";
   tag: string;
   notes?: string;
   amount: string;
@@ -16,13 +16,15 @@ type FilterType = {
 
 type State = {
   records: RecordType[];
+  incomes: number;
+  expenses: number;
   filteredRecords: RecordType[];
   filters?: FilterType;
 };
 
 type Actions = {
   insertRecord: (details: RecordType) => void;
-  deleteRecord: (id: string) => void;
+  deleteRecord: (details: RecordType) => void;
   applyFilters: (filters: FilterType | null) => void;
   filterByTags: (tags: string[]) => void;
   searchByNote: (text: string) => void;
@@ -32,6 +34,8 @@ type TransactionSliceType = State & Actions;
 
 const initialState: State = {
   records: [],
+  incomes: 0,
+  expenses: 0,
   filteredRecords: [],
   filters: null,
 };
@@ -39,10 +43,14 @@ const initialState: State = {
 const createTransactionSlice: StateCreator<TransactionSliceType> = (set) => ({
   ...initialState,
   insertRecord: (details) =>
-    set((state) => ({ records: [...state.records, details] })),
-  deleteRecord: (id: string) =>
     set((state) => ({
-      records: state.records.filter((record) => record.id !== id),
+      records: [...state.records, details],
+      [details.type]: state[details.type] + +details.amount,
+    })),
+  deleteRecord: (details) =>
+    set((state) => ({
+      records: state.records.filter((record) => record.id !== details.id),
+      [details.type]: state[details.type] - +details.amount,
     })),
   applyFilters: (filters: FilterType) => set({ filters }),
   filterByTags: (tags: string[]) =>

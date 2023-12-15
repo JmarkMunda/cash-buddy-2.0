@@ -1,4 +1,4 @@
-import { RecordType } from "../../../zustand/wallet/transactionSlice";
+import { RecordType } from "../../../zustand/transactions/transactionSlice";
 
 export interface ITransactionCard {
   item: RecordType;

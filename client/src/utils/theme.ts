@@ -1,9 +1,8 @@
-// import { DefaultTheme, DarkTheme } from "@react-navigation/native";
-import { Platform } from "react-native";
 import {
   MD3LightTheme as DefaultTheme,
   MD3DarkTheme,
   configureFonts,
+  useTheme,
 } from "react-native-paper";
 
 export const fontConfig = {
@@ -51,6 +50,7 @@ export const CustomLightTheme = {
     surfaceDisabled: "rgba(26, 28, 24, 0.12)",
     onSurfaceDisabled: "rgba(26, 28, 24, 0.38)",
     backdrop: "rgba(44, 50, 41, 0.4)",
+    text: "rgb(36, 36, 36)",
   },
 };
 
@@ -95,7 +95,10 @@ export const CustomDarkTheme = {
     surfaceDisabled: "rgba(226, 227, 220, 0.12)",
     onSurfaceDisabled: "rgba(226, 227, 220, 0.38)",
     backdrop: "rgba(44, 50, 41, 0.4)",
+    text: "rgb(235, 235, 235)",
   },
 };
 
-// export type Theme = typeof MyLightTheme | typeof MyDarkTheme;
+export type AppThemeType = typeof CustomLightTheme;
+
+export const useAppTheme = () => useTheme<AppThemeType>();

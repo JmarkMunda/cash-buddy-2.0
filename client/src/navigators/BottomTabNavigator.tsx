@@ -5,14 +5,14 @@ import { useTheme } from "react-native-paper";
 import DashboardScreen from "../screens/DashboardScreen";
 import HistoryScreen from "../screens/HistoryScreen";
 import WalletScreen from "../screens/Wallet/WalletScreen";
-import AccountSettingsScreen from "../screens/AccountSettingsScreen";
 import HeaderButton from "../components/HeaderButton";
 import shadows from "../utils/shadows";
 import Container from "../components/Container";
 import { Platform, StyleSheet, View } from "react-native";
 import { useSettingsStore } from "../zustand/settings/store";
-import AppStyles from "../utils/styles";
 import spacings from "../utils/spacings";
+import CalendarScreen from "../screens/Calendar/CalendarScreen";
+import StatisticsScreen from "../screens/Statistics/StatisticsScreen";
 
 type IconProps = {
   focused: boolean;
@@ -33,8 +33,8 @@ const BottomTabNavigator = () => {
       icon: (props: IconProps) => <Entypo name="wallet" {...props} />,
     },
     {
-      name: "Dashboard",
-      component: DashboardScreen,
+      name: "Statistics",
+      component: StatisticsScreen,
       icon: (props: IconProps) => <Ionicons name="stats-chart" {...props} />,
     },
     {
@@ -43,9 +43,9 @@ const BottomTabNavigator = () => {
       icon: (props: IconProps) => <FontAwesome name="history" {...props} />,
     },
     {
-      name: "Account Settings",
-      component: AccountSettingsScreen,
-      icon: (props: IconProps) => <Entypo name="calculator" {...props} />,
+      name: "Calendar",
+      component: CalendarScreen,
+      icon: (props: IconProps) => <Entypo name="calendar" {...props} />,
     },
   ];
 
@@ -54,21 +54,23 @@ const BottomTabNavigator = () => {
       initialRouteName="Wallet"
       screenOptions={(props) => ({
         headerTransparent: true,
+        headerLeft: (btnProps) => (
+          <HeaderButton
+            name="calculator-outline"
+            size={32}
+            onPress={() => props.navigation.navigate("Calculator")}
+            containerStyle={spacings.mx16}
+            {...btnProps}
+          />
+        ),
         headerRight: (btnProps) => (
-          <View style={[AppStyles.flex_row, spacings.mx16, { gap: 16 }]}>
-            <HeaderButton
-              name="calculator-outline"
-              size={32}
-              onPress={() => props.navigation.navigate("Calculator")}
-              {...btnProps}
-            />
-            <HeaderButton
-              name="settings-outline"
-              size={32}
-              onPress={() => props.navigation.openDrawer()}
-              {...btnProps}
-            />
-          </View>
+          <HeaderButton
+            name="settings-outline"
+            size={32}
+            onPress={() => props.navigation.openDrawer()}
+            containerStyle={spacings.mx16}
+            {...btnProps}
+          />
         ),
         tabBarItemStyle: {
           height: Platform.OS === "android" ? 80 : 90,

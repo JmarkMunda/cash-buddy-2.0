@@ -3,7 +3,7 @@ import Container from "../../../components/Container";
 import spacings from "../../../utils/spacings";
 import { StyleSheet, View } from "react-native";
 import Text from "../../../components/Text";
-import { RecordType } from "../../../zustand/wallet/transactionSlice";
+import { RecordType } from "../../../zustand/transactions/transactionSlice";
 import { useTheme } from "react-native-paper";
 
 interface ITransactionCard {
@@ -12,7 +12,7 @@ interface ITransactionCard {
 
 const TransactionCard = ({ item }: ITransactionCard) => {
   const { colors } = useTheme();
-  const isExpense = item.type === "cash-out";
+  const isExpense = item.type === "expenses";
   const color = isExpense ? colors.error : colors.primary;
 
   return (

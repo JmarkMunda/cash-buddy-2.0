@@ -22,13 +22,13 @@ const WalletScreen = () => {
 
   const onInsertCashPress = useCallback(async () => {
     await SheetManager.show("wallet-sheet", {
-      payload: { type: "cash-in" },
+      payload: { type: "incomes" },
     });
   }, []);
 
   const onTakeOutCashPress = () => {
     SheetManager.show("wallet-sheet", {
-      payload: { type: "cash-out" },
+      payload: { type: "expenses" },
     });
   };
 

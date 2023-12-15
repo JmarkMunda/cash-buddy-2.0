@@ -9,7 +9,7 @@ import formatDate from "../../../utils/formatDate";
 
 const TransactionCard = ({ item }: ITransactionCard) => {
   const { colors } = useTheme();
-  const isExpense = item.type === "cash-out";
+  const isExpense = item.type === "expenses";
   const color = isExpense ? colors.error : colors.primary;
   const date = formatDate(item.date, "dddd");
   const time = formatDate(item.date, "LT");
