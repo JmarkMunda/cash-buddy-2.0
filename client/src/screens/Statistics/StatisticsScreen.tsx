@@ -5,9 +5,10 @@ import { chartDataType } from "../../../globals";
 import LinearContainer from "../../components/LinearContainer";
 import Legends from "./components/Legends";
 import AppStyles from "../../utils/styles";
-import Text from "../../components/Text";
 import SegmentedButtons from "./components/SegmentedButtons";
 import PieChart from "./components/PieChart";
+import Empty from "../../components/Empty";
+import { minus_wallet } from "../../../assets/images/assets";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
@@ -16,7 +17,7 @@ const StatisticsScreen = () => {
   const records = useTransactionsStore(({ records }) => records);
 
   const [chartData, setChartData] = useState([]);
-  const [currentTab, setCurrentTab] = useState("expenses");
+  const [currentTab, setCurrentTab] = useState("incomes");
 
   useEffect(() => {
     const computeData = () => {
@@ -31,8 +32,8 @@ const StatisticsScreen = () => {
         id: item.id,
         value: +item.amount,
         label: item.tag,
-        color: "rgba(255, 195, 0, 0.5)",
-        gradientCenterColor: "rgba(243, 219, 141, 0.829)",
+        color: item.color,
+        gradientCenterColor: "rgba(235, 234, 232, 0.829)",
         focused: false,
       }));
 
@@ -62,9 +63,11 @@ const StatisticsScreen = () => {
     <LinearContainer>
       <SegmentedButtons currentTab={currentTab} setCurrentTab={setCurrentTab} />
       {!chartData.length ? (
-        <View style={AppStyles.items_center}>
-          <Text variant="titleLarge">No data to be displayed</Text>
-        </View>
+        <Empty
+          source={minus_wallet}
+          title="No data to be displayed"
+          description="This is a sample description"
+        />
       ) : (
         <>
           <View style={[AppStyles.items_center]}>

@@ -7,6 +7,7 @@ type RecordType = {
   notes?: string;
   amount: string;
   date: Date;
+  color: string;
 };
 
 type FilterType = {
