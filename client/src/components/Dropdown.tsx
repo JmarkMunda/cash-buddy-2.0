@@ -1,6 +1,6 @@
 import React, { SetStateAction, useState } from "react";
 import DropDownPicker, { ValueType } from "react-native-dropdown-picker";
-import { useTheme } from "react-native-paper";
+import { useAppTheme } from "../utils/theme";
 
 interface IDropdown {
   items: { label: string; value: string }[];
@@ -12,7 +12,7 @@ interface IDropdown {
 // TODO: Insert types
 
 const Dropdown = (props: IDropdown) => {
-  const { dark } = useTheme();
+  const { dark } = useAppTheme();
 
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState(props.items);

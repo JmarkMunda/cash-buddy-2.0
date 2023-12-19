@@ -1,13 +1,13 @@
 import React from "react";
 import { TextInput, View, StyleSheet } from "react-native";
-import { useTheme } from "react-native-paper";
-import Text from "../../../components/Text";
+import { useAppTheme } from "../../../utils/theme";
 import { useCalculatorStore } from "../../../zustand/calculator/store";
+import Text from "../../../components/Text";
 import spacings from "../../../utils/spacings";
 import AppStyles from "../../../utils/styles";
 
 const Display = () => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
   const [total, expression, operator] = useCalculatorStore(
     ({ total, expression, operator }) => [total, expression, operator]
   );

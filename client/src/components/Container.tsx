@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { useTheme } from "react-native-paper";
+import { useAppTheme } from "../utils/theme";
 
 interface IContainer {
   children?: React.ReactNode;
@@ -16,7 +16,7 @@ const Container = ({
   style,
   ...props
 }: IContainer) => {
-  const { dark } = useTheme();
+  const { dark } = useAppTheme();
 
   return (
     <View

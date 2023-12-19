@@ -5,7 +5,7 @@ import { useController, UseControllerProps } from "react-hook-form";
 import { FormValues } from "../types";
 import Text from "../../../components/Text";
 import { TextInputProps } from "react-native-paper";
-import { useTheme } from "react-native-paper";
+import { useAppTheme } from "../../../utils/theme";
 
 interface IControlInput extends UseControllerProps<FormValues> {
   label?: string;
@@ -17,7 +17,7 @@ type ControlInputType = IControlInput & TextInputProps;
 
 const ControlInput = (props: ControlInputType) => {
   const { field, fieldState } = useController(props);
-  const { colors, dark } = useTheme();
+  const { colors, dark } = useAppTheme();
 
   return (
     <>

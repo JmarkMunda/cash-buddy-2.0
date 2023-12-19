@@ -1,13 +1,14 @@
 import React, { forwardRef } from "react";
-import { Portal, useTheme } from "react-native-paper";
+import { Portal } from "react-native-paper";
 import { Modalize as RNModalize, ModalizeProps } from "react-native-modalize";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useAppTheme } from "../utils/theme";
 
 const Modalize = forwardRef((props: ModalizeProps, ref) => {
   const { children } = props;
   const { bottom } = useSafeAreaInsets();
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
 
   return (
     <Portal>

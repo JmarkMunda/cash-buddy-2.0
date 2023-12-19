@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { useWalletStore } from "../../../zustand/wallet/store";
-import { useTheme } from "react-native-paper";
+import { useAppTheme } from "../../../utils/theme";
+import { useTransactionsStore } from "../../../zustand/transactions/store";
 import Searchbar from "../../../components/Searchbar";
 import ButtonContainer from "../../../components/ButtonContainer";
 import Text from "../../../components/Text";
 
 const Header = ({ onFilterPress }) => {
   const [searchText, setSearchText] = useState("");
-  const [applyFilters, searchByNote] = useWalletStore(
+  const [applyFilters, searchByNote] = useTransactionsStore(
     ({ applyFilters, searchByNote }) => [applyFilters, searchByNote]
   );
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
 
   const handleSearch = () => {
     applyFilters(searchText ? { searchText } : null);

@@ -1,5 +1,5 @@
 import React, { forwardRef, useState } from "react";
-import { Chip, useTheme } from "react-native-paper";
+import { Chip } from "react-native-paper";
 import Modalize from "../../../components/Modalize";
 import Text from "../../../components/Text";
 import { View, StyleSheet } from "react-native";
@@ -8,17 +8,19 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 import Button from "../../../components/Button";
 import { useWalletStore } from "../../../zustand/wallet/store";
+import { useAppTheme } from "../../../utils/theme";
+import { useTransactionsStore } from "../../../zustand/transactions/store";
 
 interface IFilterModal {
   handleClose?: () => void;
 }
 
 const FilterModal = forwardRef((props: IFilterModal, ref) => {
-  const [filterByTags, applyFilters] = useWalletStore(
+  const [filterByTags, applyFilters] = useTransactionsStore(
     ({ filterByTags, applyFilters }) => [filterByTags, applyFilters]
   );
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
 
   const handleFilterSelect = (value: string) => {
     const copyFilters = [...selectedTags];
@@ -52,7 +54,7 @@ const FilterModal = forwardRef((props: IFilterModal, ref) => {
         <TouchableOpacity
           style={{ alignSelf: "flex-end" }}
           hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}>
-          <AntDesign name="closesquare" size={24} color={colors.onBackground} />
+          <AntDesign name="closesquare" size={24} color={colors.text} />
         </TouchableOpacity>
       }>
       <Text variant="labelLarge">Tags</Text>

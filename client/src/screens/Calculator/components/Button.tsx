@@ -3,8 +3,8 @@ import ButtonContainer from "../../../components/ButtonContainer";
 import Text from "../../../components/Text";
 import { StyleSheet } from "react-native";
 import shadows from "../../../utils/shadows";
-import { useTheme } from "react-native-paper";
 import * as Haptics from "expo-haptics";
+import { useAppTheme } from "../../../utils/theme";
 
 interface IButton {
   title: string;
@@ -22,7 +22,7 @@ const Button = ({
   disabled,
   ...props
 }: IButton) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
 
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);

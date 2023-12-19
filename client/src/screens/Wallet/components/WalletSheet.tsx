@@ -3,24 +3,24 @@ import ActionSheet, {
   SheetManager,
   SheetProps,
 } from "react-native-actions-sheet";
-import AppStyles from "../../../utils/styles";
-import Button from "../../../components/Button";
 import { useWalletStore } from "../../../zustand/wallet/store";
-import ControlInput from "./ControlInput";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { cashInSchema } from "../../../utils/schema";
 import { FormValues } from "../types";
 import { useForm } from "react-hook-form";
-import ControlDropdown from "./ControlDropdown";
 import { defaultTags } from "../../../utils/constants";
 import { alertAsync } from "../../../components/ToastAlert";
 import { DropdownAlertType } from "react-native-dropdownalert";
-import Container from "../../../components/Container";
-import { useTheme } from "react-native-paper";
 import { v1 as uuidv1 } from "uuid";
 import { useTransactionsStore } from "../../../zustand/transactions/store";
-import ColorPickerModal from "./ColorPickerModal";
+import { useAppTheme } from "../../../utils/theme";
 import { View } from "react-native";
+import AppStyles from "../../../utils/styles";
+import Button from "../../../components/Button";
+import ControlInput from "./ControlInput";
+import ControlDropdown from "./ControlDropdown";
+import Container from "../../../components/Container";
+import ColorPickerModal from "./ColorPickerModal";
 import Text from "../../../components/Text";
 import ButtonContainer from "../../../components/ButtonContainer";
 import spacings from "../../../utils/spacings";
@@ -30,7 +30,7 @@ interface IWalletSheetProps {
 }
 
 const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
   // Global State
   const [loading, insertCash, takeOutCash] = useWalletStore(
     ({ loading, insertCash, takeOutCash }) => [loading, insertCash, takeOutCash]

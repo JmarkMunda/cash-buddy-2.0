@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Button from "./Button";
 import { View, StyleSheet, Dimensions } from "react-native";
-import { useTheme } from "react-native-paper";
 import { useCalculatorStore } from "../../../zustand/calculator/store";
+import { useAppTheme } from "../../../utils/theme";
 
 const PADDING = 16;
 const { width, height } = Dimensions.get("window");
 
 const Numpad = () => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
   const [
     expression,
     operator,

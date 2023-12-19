@@ -1,14 +1,11 @@
 import React from "react";
-import { ScrollView, View, TextInput } from "react-native";
-import Text from "../../components/Text";
-import { useTheme } from "react-native-paper";
 import LinearContainer from "../../components/LinearContainer";
 import Numpad from "./components/Numpad";
-import spacings from "../../utils/spacings";
 import Display from "./components/Display";
+import { useAppTheme } from "../../utils/theme";
 
 const CalculatorScreen = ({ navigation }) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
 
   return (
     <LinearContainer

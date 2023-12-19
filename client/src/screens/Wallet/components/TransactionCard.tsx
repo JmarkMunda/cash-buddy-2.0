@@ -4,14 +4,14 @@ import spacings from "../../../utils/spacings";
 import { StyleSheet, View } from "react-native";
 import Text from "../../../components/Text";
 import { RecordType } from "../../../zustand/transactions/transactionSlice";
-import { useTheme } from "react-native-paper";
+import { useAppTheme } from "../../../utils/theme";
 
 interface ITransactionCard {
   item: RecordType;
 }
 
 const TransactionCard = ({ item }: ITransactionCard) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
   const isExpense = item.type === "expenses";
   const color = isExpense ? colors.error : colors.primary;
 

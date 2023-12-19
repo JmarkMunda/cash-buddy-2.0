@@ -1,8 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons, FontAwesome, Entypo } from "@expo/vector-icons";
-import { useTheme } from "react-native-paper";
-import DashboardScreen from "../screens/DashboardScreen";
 import HistoryScreen from "../screens/HistoryScreen";
 import WalletScreen from "../screens/Wallet/WalletScreen";
 import HeaderButton from "../components/HeaderButton";
@@ -13,6 +11,7 @@ import { useSettingsStore } from "../zustand/settings/store";
 import spacings from "../utils/spacings";
 import CalendarScreen from "../screens/Calendar/CalendarScreen";
 import StatisticsScreen from "../screens/Statistics/StatisticsScreen";
+import { useAppTheme } from "../utils/theme";
 
 type IconProps = {
   focused: boolean;
@@ -23,7 +22,7 @@ type IconProps = {
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
   const isBankView = useSettingsStore(({ isBankView }) => isBankView);
 
   const tabs = [
@@ -88,8 +87,8 @@ const BottomTabNavigator = () => {
           borderTopWidth: 0,
         },
         tabBarActiveBackgroundColor: colors.secondaryContainer,
-        tabBarActiveTintColor: colors.background,
-        tabBarInactiveTintColor: colors.onBackground,
+        tabBarActiveTintColor: "#fff",
+        tabBarInactiveTintColor: colors.text,
         tabBarBackground: () => (
           <Container
             opacity={0.8}

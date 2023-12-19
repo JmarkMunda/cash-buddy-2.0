@@ -7,8 +7,8 @@ import {
 } from "expo-linear-gradient";
 import { StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { useTheme } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useAppTheme } from "../utils/theme";
 
 interface ILinearContainerProps {
   children: React.ReactNode;
@@ -30,7 +30,7 @@ const LinearContainer = ({
 }: ILinearContainerProps) => {
   const headerHeight = useHeaderHeight();
   const { bottom } = useSafeAreaInsets();
-  const { colors: themeColors } = useTheme();
+  const { colors: themeColors } = useAppTheme();
 
   return (
     <LinearGradient

@@ -1,24 +1,25 @@
 import React, { useCallback, useState } from "react";
 import CardBalance from "./components/CardBalance";
-import { Switch, useTheme } from "react-native-paper";
-import LinearContainer from "../../components/LinearContainer";
+import { Switch } from "react-native-paper";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { add_wallet, minus_wallet } from "../../../assets/images/assets";
-import TransactionList from "./components/TransactionList";
+import { useSettingsStore } from "../../zustand/settings/store";
+import { useAppTheme } from "../../utils/theme";
 import { SheetManager } from "react-native-actions-sheet";
+import LinearContainer from "../../components/LinearContainer";
+import TransactionList from "./components/TransactionList";
 import InOutCashButton from "./components/InOutCashButton";
 import Text from "../../components/Text";
 import WalletBalance from "./components/WalletBalance";
-import { useSettingsStore } from "../../zustand/settings/store";
 
 const WalletScreen = () => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
   const [isBankView, toggleBankView] = useSettingsStore(
     ({ isBankView, toggleBankView }) => [isBankView, toggleBankView]
   );
   const bgColor = isBankView
-    ? [colors.primaryContainer, colors.background]
-    : [colors.tertiary, colors.background];
+    ? [colors.primaryContainer, colors.surfaceVariant]
+    : [colors.tertiaryContainer, colors.surfaceVariant];
 
   const onInsertCashPress = useCallback(async () => {
     await SheetManager.show("wallet-sheet", {

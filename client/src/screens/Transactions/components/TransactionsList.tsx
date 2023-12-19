@@ -2,15 +2,15 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SwipeListView } from "react-native-swipe-list-view";
-import TransactionCard from "./TransactionCard";
-import Text from "../../../components/Text";
-import { useTheme } from "react-native-paper";
 import { useWalletStore } from "../../../zustand/wallet/store";
 import { RecordType } from "../../../zustand/transactions/transactionSlice";
 import { useTransactionsStore } from "../../../zustand/transactions/store";
+import { useAppTheme } from "../../../utils/theme";
+import TransactionCard from "./TransactionCard";
+import Text from "../../../components/Text";
 
 const TransactionsList = ({ records }) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
   const [takeOutCash, insertCash] = useWalletStore(
     ({ takeOutCash, insertCash }) => [takeOutCash, insertCash]
   );
@@ -51,7 +51,9 @@ const TransactionsList = ({ records }) => {
                 key={item.label}
                 style={[styles.hiddenItemBtn, { backgroundColor: item.color }]}
                 onPress={() => item.handlePress(data.item)}>
-                <Text color={colors.background}>{item.label}</Text>
+                <Text variant="labelLarge" color={colors.background}>
+                  {item.label}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>

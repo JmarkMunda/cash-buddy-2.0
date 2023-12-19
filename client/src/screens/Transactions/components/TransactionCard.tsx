@@ -2,13 +2,12 @@ import React from "react";
 import Container from "../../../components/Container";
 import Text from "../../../components/Text";
 import { StyleSheet, View } from "react-native";
-import { CustomLightTheme } from "../../../utils/theme";
+import { CustomLightTheme, useAppTheme } from "../../../utils/theme";
 import { ITransactionCard } from "../types";
-import { useTheme } from "react-native-paper";
 import formatDate from "../../../utils/formatDate";
 
 const TransactionCard = ({ item }: ITransactionCard) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
   const isExpense = item.type === "expenses";
   const color = isExpense ? colors.error : colors.primary;
   const date = formatDate(item.date, "dddd");
@@ -26,7 +25,7 @@ const TransactionCard = ({ item }: ITransactionCard) => {
 
       <View style={{ flex: 1, marginHorizontal: 16 }}>
         <Text variant="titleMedium">{item.tag}</Text>
-        <Text variant="bodyMedium" color={colors.onSurfaceVariant}>
+        <Text variant="bodyMedium" color={colors.outline}>
           {item.notes}
         </Text>
       </View>

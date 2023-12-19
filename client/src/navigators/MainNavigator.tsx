@@ -1,10 +1,8 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AccountSettingsScreen from "../screens/AccountSettingsScreen";
+import { useAppTheme } from "../utils/theme";
 import BottomTabNavigator from "./BottomTabNavigator";
 import TransactionsScreen from "../screens/Transactions/TransactionsScreen";
-import { useSettingsStore } from "../zustand/settings/store";
-import { useTheme } from "react-native-paper";
 import HeaderButton from "../components/HeaderButton";
 import CalculatorScreen from "../screens/Calculator/CalculatorScreen";
 import CategoriesScreen from "../screens/Categories/CategoriesScreen";
@@ -13,7 +11,7 @@ const Stack = createNativeStackNavigator();
 
 // Stack of all screens
 const MainNavigator = () => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
   // const isBankView = useSettingsStore(({ isBankView }) => isBankView);
   // const headerBg = isBankView ? colors.primary : colors.tertiary;
 

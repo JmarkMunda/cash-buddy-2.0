@@ -1,8 +1,8 @@
-import { Theme } from "./src/utils/theme";
+// import { Theme } from "./src/utils/theme";
 
-declare module "@react-navigation/native" {
-  export function useTheme(): Theme;
-}
+// declare module "@react-navigation/native" {
+//   export function useTheme(): Theme;
+// }
 
 export type chartDataType = {
   id?: string;

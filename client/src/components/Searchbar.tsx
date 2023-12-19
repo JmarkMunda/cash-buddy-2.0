@@ -2,8 +2,8 @@ import React from "react";
 import {
   Searchbar as PaperSearchbar,
   SearchbarProps,
-  useTheme,
 } from "react-native-paper";
+import { useAppTheme } from "../utils/theme";
 
 interface ISearchbar extends SearchbarProps {
   value: string;
@@ -19,7 +19,7 @@ const Searchbar = ({
   onClearIconPress,
   ...props
 }: ISearchbar) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
 
   return (
     <PaperSearchbar
@@ -30,7 +30,7 @@ const Searchbar = ({
       onChangeText={onChangeText}
       onClearIconPress={onClearIconPress}
       style={{
-        backgroundColor: colors.inverseOnSurface,
+        backgroundColor: colors.outlineVariant,
         flex: 1,
         borderRadius: 8,
       }}
