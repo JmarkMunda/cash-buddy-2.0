@@ -1,45 +1,12 @@
-// import { DefaultTheme, DarkTheme } from "@react-navigation/native";
-import { Platform } from "react-native";
 import {
   MD3LightTheme as DefaultTheme,
   MD3DarkTheme,
   configureFonts,
+  useTheme,
 } from "react-native-paper";
 
 export const fontConfig = {
   fontFamily: "Signika_400Regular",
-};
-
-export const MyLightTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: "rgb(185, 238, 164)",
-    secondary: "rgb(246, 248, 122)",
-    tertiary: "rgb(204, 248, 187)",
-    background: "rgb(201, 201, 201)",
-    card: "rgb(255, 255, 255)",
-    text: "rgb(28, 28, 30)",
-    description: "rgb(173, 173, 173)",
-    border: "rgb(199, 199, 204)",
-    notification: "rgb(255, 69, 58)",
-  },
-};
-
-export const MyDarkTheme = {
-  // ...DarkTheme,
-  colors: {
-    // ...DarkTheme.colors,
-    primary: "rgb(26, 70, 53)",
-    secondary: "rgb(246, 248, 122)",
-    tertiary: "rgb(3, 20, 7)",
-    background: "rgb(43, 43, 43)",
-    card: "rgb(24, 24, 24)",
-    text: "rgb(255, 255, 255)",
-    description: "rgb(173, 173, 173)",
-    border: "rgb(199, 199, 204)",
-    notification: "rgb(255, 69, 58)",
-  },
 };
 
 export const CustomLightTheme = {
@@ -48,23 +15,23 @@ export const CustomLightTheme = {
   colors: {
     primary: "rgb(50, 107, 36)",
     onPrimary: "rgb(255, 255, 255)",
-    primaryContainer: "rgb(179, 243, 155)",
+    primaryContainer: "rgb(178, 244, 155)",
     onPrimaryContainer: "rgb(2, 33, 0)",
-    secondary: "rgb(104, 71, 192)",
+    secondary: "rgb(87, 77, 114)",
     onSecondary: "rgb(255, 255, 255)",
-    secondaryContainer: "rgb(232, 221, 255)",
-    onSecondaryContainer: "rgb(33, 0, 93)",
-    tertiary: "rgb(121, 89, 0)",
+    secondaryContainer: "rgb(68, 54, 99)",
+    onSecondaryContainer: "rgb(230, 225, 240)",
+    tertiary: "rgb(168, 122, 29)",
     onTertiary: "rgb(255, 255, 255)",
-    tertiaryContainer: "rgb(255, 223, 160)",
-    onTertiaryContainer: "rgb(38, 26, 0)",
+    tertiaryContainer: "rgb(255, 221, 177)",
+    onTertiaryContainer: "rgb(41, 24, 0)",
     error: "rgb(186, 26, 26)",
     onError: "rgb(255, 255, 255)",
     errorContainer: "rgb(255, 218, 214)",
     onErrorContainer: "rgb(65, 0, 2)",
-    background: "rgb(253, 253, 246)",
+    background: "rgb(252, 253, 246)",
     onBackground: "rgb(26, 28, 24)",
-    surface: "rgb(253, 253, 246)",
+    surface: "rgb(252, 253, 246)",
     onSurface: "rgb(26, 28, 24)",
     surfaceVariant: "rgb(223, 228, 215)",
     onSurfaceVariant: "rgb(67, 72, 63)",
@@ -74,18 +41,22 @@ export const CustomLightTheme = {
     scrim: "rgb(0, 0, 0)",
     inverseSurface: "rgb(47, 49, 45)",
     inverseOnSurface: "rgb(241, 241, 234)",
-    inversePrimary: "rgb(152, 215, 130)",
+    inversePrimary: "rgb(151, 215, 130)",
     elevation: {
       level0: "transparent",
-      level1: "rgb(243, 246, 236)",
-      level2: "rgb(237, 241, 229)",
-      level3: "rgb(231, 237, 223)",
-      level4: "rgb(229, 236, 221)",
-      level5: "rgb(225, 233, 217)",
+      level1: "rgb(242, 246, 236)",
+      level2: "rgb(236, 241, 229)",
+      level3: "rgb(230, 237, 223)",
+      level4: "rgb(228, 236, 221)",
+      level5: "rgb(224, 233, 217)",
     },
     surfaceDisabled: "rgba(26, 28, 24, 0.12)",
     onSurfaceDisabled: "rgba(26, 28, 24, 0.38)",
     backdrop: "rgba(44, 50, 41, 0.4)",
+    text: "rgb(59, 61, 61)",
+    onText: "rgb(255, 255, 255)",
+    textContainer: "rgb(71, 84, 87)",
+    onTextContainer: "rgb(26, 33, 34)",
   },
 };
 
@@ -93,18 +64,18 @@ export const CustomDarkTheme = {
   ...MD3DarkTheme,
   fonts: configureFonts({ config: fontConfig }),
   colors: {
-    primary: "rgb(152, 215, 130)",
-    onPrimary: "rgb(6, 57, 0)",
-    primaryContainer: "rgb(25, 82, 12)",
-    onPrimaryContainer: "rgb(179, 243, 155)",
+    primary: "rgb(151, 215, 130)",
+    onPrimary: "rgb(5, 57, 0)",
+    primaryContainer: "rgb(24, 82, 12)",
+    onPrimaryContainer: "rgb(178, 244, 155)",
     secondary: "rgb(206, 189, 255)",
     onSecondary: "rgb(57, 5, 144)",
-    secondaryContainer: "rgb(80, 43, 167)",
+    secondaryContainer: "rgb(80, 44, 167)",
     onSecondaryContainer: "rgb(232, 221, 255)",
-    tertiary: "rgb(248, 189, 42)",
-    onTertiary: "rgb(64, 45, 0)",
-    tertiaryContainer: "rgb(92, 67, 0)",
-    onTertiaryContainer: "rgb(255, 223, 160)",
+    tertiary: "rgb(124, 86, 25)",
+    onTertiary: "rgb(68, 43, 0)",
+    tertiaryContainer: "rgb(98, 64, 0)",
+    onTertiaryContainer: "rgb(255, 221, 177)",
     error: "rgb(255, 180, 171)",
     onError: "rgb(105, 0, 5)",
     errorContainer: "rgb(147, 0, 10)",
@@ -133,7 +104,13 @@ export const CustomDarkTheme = {
     surfaceDisabled: "rgba(226, 227, 220, 0.12)",
     onSurfaceDisabled: "rgba(226, 227, 220, 0.38)",
     backdrop: "rgba(44, 50, 41, 0.4)",
+    text: "rgb(241, 241, 241)",
+    onText: "rgb(50, 54, 54)",
+    textContainer: "rgb(93, 100, 100)",
+    onTextContainer: "rgb(243, 250, 252)",
   },
 };
 
-export type Theme = typeof MyLightTheme | typeof MyDarkTheme;
+export type AppThemeType = typeof CustomLightTheme;
+
+export const useAppTheme = () => useTheme<AppThemeType>();

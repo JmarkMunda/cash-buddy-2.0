@@ -2,7 +2,7 @@ import React from "react";
 import { View, ViewProps, StyleSheet } from "react-native";
 import shadows from "../utils/shadows";
 import spacings from "../utils/spacings";
-import { useTheme } from "react-native-paper";
+import { useAppTheme } from "../utils/theme";
 
 interface ICardProps extends ViewProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ interface ICardProps extends ViewProps {
 }
 
 const Card = ({ children, shadow, style, ...props }: ICardProps) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
 
   return (
     <View

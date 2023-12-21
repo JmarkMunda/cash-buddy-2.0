@@ -1,38 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
 import ActionSheet, {
   SheetManager,
   SheetProps,
 } from "react-native-actions-sheet";
-import AppStyles from "../../../utils/styles";
-import Button from "../../../components/Button";
 import { useWalletStore } from "../../../zustand/wallet/store";
-import ControlInput from "./ControlInput";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { cashInSchema } from "../../../utils/schema";
 import { FormValues } from "../types";
 import { useForm } from "react-hook-form";
-import ControlDropdown from "./ControlDropdown";
 import { defaultTags } from "../../../utils/constants";
 import { alertAsync } from "../../../components/ToastAlert";
 import { DropdownAlertType } from "react-native-dropdownalert";
+import { v1 as uuidv1 } from "uuid";
+import { useTransactionsStore } from "../../../zustand/transactions/store";
+import { useAppTheme } from "../../../utils/theme";
+import { View } from "react-native";
+import AppStyles from "../../../utils/styles";
+import Button from "../../../components/Button";
+import ControlInput from "./ControlInput";
+import ControlDropdown from "./ControlDropdown";
+import Container from "../../../components/Container";
+import ColorPickerModal from "./ColorPickerModal";
+import Text from "../../../components/Text";
+import ButtonContainer from "../../../components/ButtonContainer";
+import spacings from "../../../utils/spacings";
 
 interface IWalletSheetProps {
-  type: "cash-in" | "cash-out";
+  type: "incomes" | "expenses";
 }
 
 const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
+  const { colors } = useAppTheme();
   // Global State
-  const [loading, insertCash, takeOutCash, insertRecord] = useWalletStore(
-    ({ loading, insertCash, takeOutCash, insertRecord }) => [
-      loading,
-      insertCash,
-      takeOutCash,
-      insertRecord,
-    ]
+  const [loading, insertCash, takeOutCash] = useWalletStore(
+    ({ loading, insertCash, takeOutCash }) => [loading, insertCash, takeOutCash]
   );
+  const insertRecord = useTransactionsStore(({ insertRecord }) => insertRecord);
   // Local State
   const [value, setValue] = useState(null);
+  const [showColorModal, setShowColorModal] = useState(false);
   // Form validation
   const { control, handleSubmit, reset, formState } = useForm<FormValues>({
     resolver: yupResolver(cashInSchema) as any,
@@ -42,6 +48,8 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
       amount: "",
     },
   });
+
+  const [color, setColor] = useState("#ffffff");
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
@@ -65,72 +73,109 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
   }, [formState.isSubmitSuccessful, formState.errors, reset]);
 
   const onSubmit = async (data: FormValues) => {
-    if (props.payload?.type === "cash-in") {
+    if (props.payload?.type === "incomes") {
       await insertCash(+data.amount);
     } else {
       await takeOutCash(+data.amount);
     }
-    insertRecord({ type: props.payload?.type, date: new Date(), ...data });
+    insertRecord({
+      id: uuidv1(),
+      type: props.payload?.type,
+      date: new Date(),
+      color,
+      ...data,
+    });
+  };
+
+  // COLOR PICKER HANDLERS
+  const handleSelectColor = (color: string) => {
+    setColor(color);
   };
 
   return (
-    <ActionSheet id={props.sheetId}>
-      <View style={AppStyles.container}>
-        <ControlDropdown
-          value={value}
-          setValue={setValue}
-          items={defaultTags}
-          name="tag"
-          control={control}
-          placeholder="Select a Tag"
-        />
+    <>
+      <ActionSheet id={props.sheetId} useBottomSafeAreaPadding>
+        <Container style={AppStyles.container}>
+          <Text variant="labelLarge" style={{ alignSelf: "center" }}>
+            {props.payload?.type === "incomes" ? "CASH IN" : "CASH OUT"}
+          </Text>
+          <ControlDropdown
+            value={value}
+            setValue={setValue}
+            items={defaultTags}
+            name="tag"
+            control={control}
+            placeholder="Select a Tag"
+          />
 
-        <ControlInput
-          name="amount"
-          control={control}
-          label={props.payload?.type === "cash-in" ? "CASH IN" : "CASH OUT"}
-          labelStyle={{ justifyContent: "center" }}
-          keyboardType="number-pad"
-          placeholder="0"
-          style={{
-            textAlign: "center",
-            fontSize: 32,
-            marginVertical: 8,
-            height: 100,
-          }}
-        />
+          {/* COLOR PICKER */}
+          <View
+            style={[AppStyles.flex_row, AppStyles.just_between, spacings.py8]}>
+            <View style={AppStyles.flex_row}>
+              <Text variant="labelLarge">Color:</Text>
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: color,
+                  marginHorizontal: 8,
+                  borderRadius: 99,
+                  borderWidth: 1,
+                }}
+              />
+            </View>
+            <ButtonContainer
+              containerStyle={{ alignSelf: "flex-end" }}
+              onPress={() => setShowColorModal((prev) => !prev)}>
+              <Text variant="labelLarge"> Pick a color</Text>
+            </ButtonContainer>
+          </View>
 
-        <ControlInput
-          name="notes"
-          placeholder="Add notes..."
-          control={control}
-          style={{
-            marginVertical: 8,
-            height: 50,
-            fontSize: 16,
-            textAlign: "center",
-          }}
-        />
+          <ControlInput
+            name="amount"
+            control={control}
+            labelStyle={{ justifyContent: "center" }}
+            keyboardType="number-pad"
+            placeholder="0"
+            style={{
+              textAlign: "center",
+              fontSize: 32,
+              marginVertical: 8,
+              height: 100,
+            }}
+          />
 
-        <Button
-          mode="contained"
-          onPress={handleSubmit(onSubmit)}
-          loading={loading}>
-          {props.payload?.type === "cash-in" ? "Insert" : "Take out"}
-        </Button>
-      </View>
-    </ActionSheet>
+          <ControlInput
+            name="notes"
+            placeholder="Add notes..."
+            control={control}
+            style={{
+              marginVertical: 8,
+              height: 50,
+              fontSize: 14,
+              textAlign: "center",
+            }}
+          />
+
+          <Button
+            mode="contained"
+            onPress={handleSubmit(onSubmit)}
+            loading={loading}
+            textColor="white"
+            buttonColor={colors.secondaryContainer}>
+            {props.payload?.type === "incomes" ? "Insert" : "Take out"}
+          </Button>
+        </Container>
+
+        {/* MODAL */}
+        <ColorPickerModal
+          visible={showColorModal}
+          handleClose={() => setShowColorModal(false)}
+          handleSelectColor={handleSelectColor}
+        />
+      </ActionSheet>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    borderWidth: 1,
-    borderColor: "rgb(122, 122, 122)",
-    borderRadius: 8,
-    width: Dimensions.get("window").width / 2,
-    fontSize: 50,
-  },
-});
 
 export default WalletSheet;

@@ -1,33 +1,38 @@
 import React from "react";
-import { StyleProp, ViewStyle } from "react-native";
-import { BlurView } from "expo-blur";
-import { useTheme } from "react-native-paper";
+import { StyleProp, View, ViewStyle } from "react-native";
+import { useAppTheme } from "../utils/theme";
 
 interface IContainer {
   children?: React.ReactNode;
-  intensity?: number;
+  opacity?: number;
   radius?: number;
   style?: StyleProp<ViewStyle>;
 }
 
 const Container = ({
   children,
-  intensity = 100,
+  opacity = 1,
   radius,
   style,
   ...props
 }: IContainer) => {
-  const { dark } = useTheme();
+  const { dark } = useAppTheme();
 
   return (
-    <BlurView
-      tint={!dark ? "light" : "dark"}
-      intensity={intensity}
-      blurReductionFactor={116}
-      style={[{ borderRadius: radius, overflow: "hidden" }, style]}
+    <View
+      style={[
+        {
+          overflow: "hidden",
+          borderRadius: radius,
+          backgroundColor: !dark
+            ? `rgba(255,255,255, ${opacity})`
+            : `rgba(25, 25, 25, ${opacity})`,
+        },
+        style,
+      ]}
       {...props}>
       {children}
-    </BlurView>
+    </View>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, StyleProp, ViewStyle } from "react-native";
-import { useTheme } from "react-native-paper";
+import { useAppTheme } from "../utils/theme";
 
 interface IHeaderButton {
   name: any;
@@ -21,7 +21,7 @@ const HeaderButton = ({
   containerStyle,
   ...props
 }: IHeaderButton) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
 
   return (
     <Pressable

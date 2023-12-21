@@ -9,6 +9,9 @@ import MainNavigator from "./MainNavigator";
 import { useSettingsStore } from "../zustand/settings/store";
 import { Switch } from "react-native-paper";
 import Text from "../components/Text";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import { View } from "react-native";
+import AppStyles from "../utils/styles";
 
 const Drawer = createDrawerNavigator();
 
@@ -22,9 +25,20 @@ const DrawerNavigator = () => {
     const drawers = [{ label: "Account Settings", route: "Account Settings" }];
 
     return (
-      <DrawerContentScrollView {...props}>
-        <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
-        <Text>{`Dark Mode: ${isDarkMode}`}</Text>
+      <DrawerContentScrollView style={{ padding: 16 }} {...props}>
+        <View
+          style={[
+            AppStyles.flex_row,
+            AppStyles.items_center,
+            { justifyContent: "flex-end", gap: 8 },
+          ]}>
+          {!isDarkMode ? (
+            <Entypo name="light-up" size={24} color="black" />
+          ) : (
+            <Ionicons name="ios-moon" size={24} color="white" />
+          )}
+          <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
+        </View>
 
         {drawers.map((drawer) => (
           <DrawerItem

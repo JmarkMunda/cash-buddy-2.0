@@ -1,15 +1,17 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons, FontAwesome, Entypo } from "@expo/vector-icons";
-import { useTheme } from "react-native-paper";
-import DashboardScreen from "../screens/DashboardScreen";
 import HistoryScreen from "../screens/HistoryScreen";
-import CalculatorScreen from "../screens/CalculatorScreen";
 import WalletScreen from "../screens/Wallet/WalletScreen";
 import HeaderButton from "../components/HeaderButton";
 import shadows from "../utils/shadows";
 import Container from "../components/Container";
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
+import { useSettingsStore } from "../zustand/settings/store";
+import spacings from "../utils/spacings";
+import CalendarScreen from "../screens/Calendar/CalendarScreen";
+import StatisticsScreen from "../screens/Statistics/StatisticsScreen";
+import { useAppTheme } from "../utils/theme";
 
 type IconProps = {
   focused: boolean;
@@ -20,7 +22,8 @@ type IconProps = {
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
+  const isBankView = useSettingsStore(({ isBankView }) => isBankView);
 
   const tabs = [
     {
@@ -29,8 +32,8 @@ const BottomTabNavigator = () => {
       icon: (props: IconProps) => <Entypo name="wallet" {...props} />,
     },
     {
-      name: "Dashboard",
-      component: DashboardScreen,
+      name: "Statistics",
+      component: StatisticsScreen,
       icon: (props: IconProps) => <Ionicons name="stats-chart" {...props} />,
     },
     {
@@ -39,9 +42,9 @@ const BottomTabNavigator = () => {
       icon: (props: IconProps) => <FontAwesome name="history" {...props} />,
     },
     {
-      name: "Calculator",
-      component: CalculatorScreen,
-      icon: (props: IconProps) => <Entypo name="calculator" {...props} />,
+      name: "Calendar",
+      component: CalendarScreen,
+      icon: (props: IconProps) => <Entypo name="calendar" {...props} />,
     },
   ];
 
@@ -52,10 +55,10 @@ const BottomTabNavigator = () => {
         headerTransparent: true,
         headerLeft: (btnProps) => (
           <HeaderButton
-            name="ios-chevron-back"
+            name="calculator-outline"
             size={32}
-            onPress={() => {}}
-            containerStyle={{ marginLeft: 16 }}
+            onPress={() => props.navigation.navigate("Calculator")}
+            containerStyle={spacings.mx16}
             {...btnProps}
           />
         ),
@@ -64,7 +67,7 @@ const BottomTabNavigator = () => {
             name="settings-outline"
             size={32}
             onPress={() => props.navigation.openDrawer()}
-            containerStyle={{ marginRight: 16 }}
+            containerStyle={spacings.mx16}
             {...btnProps}
           />
         ),
@@ -75,19 +78,20 @@ const BottomTabNavigator = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           ...shadows.md,
+          // backgroundColor: "transparent",
           borderRadius: 99,
           position: "absolute",
-          bottom: 10,
+          bottom: 0,
           margin: 24,
           height: Platform.OS === "android" ? 80 : 90,
           borderTopWidth: 0,
         },
-        tabBarActiveBackgroundColor: colors.primary,
-        tabBarActiveTintColor: colors.background,
-        tabBarInactiveTintColor: colors.onBackground,
+        tabBarActiveBackgroundColor: colors.secondaryContainer,
+        tabBarActiveTintColor: "#fff",
+        tabBarInactiveTintColor: colors.text,
         tabBarBackground: () => (
           <Container
-            intensity={50}
+            opacity={0.8}
             radius={99}
             style={StyleSheet.absoluteFill}
           />

@@ -3,6 +3,7 @@ import { useSettingsStore } from "../zustand/settings/store";
 import { View } from "react-native";
 import Text from "../components/Text";
 import { Switch } from "react-native-paper";
+import LinearContainer from "../components/LinearContainer";
 
 const AccountSettingsScreen = () => {
   const [isDarkMode, toggleDarkMode] = useSettingsStore((state) => [
@@ -11,12 +12,12 @@ const AccountSettingsScreen = () => {
   ]);
 
   return (
-    <View>
+    <LinearContainer>
       <Text>Account Settings</Text>
 
       <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
       <Text>{`Dark Mode: ${isDarkMode}`}</Text>
-    </View>
+    </LinearContainer>
   );
 };
 

@@ -2,31 +2,38 @@ import React from "react";
 import Container from "../../../components/Container";
 import Text from "../../../components/Text";
 import { StyleSheet, View } from "react-native";
-import { CustomLightTheme } from "../../../utils/theme";
+import { CustomLightTheme, useAppTheme } from "../../../utils/theme";
 import { ITransactionCard } from "../types";
-import { useTheme } from "react-native-paper";
+import formatDate from "../../../utils/formatDate";
 
 const TransactionCard = ({ item }: ITransactionCard) => {
-  const { colors } = useTheme();
-  const isExpense = item.type === "cash-out";
+  const { colors } = useAppTheme();
+  const isExpense = item.type === "expenses";
   const color = isExpense ? colors.error : colors.primary;
+  const date = formatDate(item.date, "dddd");
+  const time = formatDate(item.date, "LT");
 
   return (
-    <Container intensity={80} radius={8} style={styles.container}>
+    <Container
+      opacity={0.8}
+      radius={8}
+      style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.date}>
-        <Text variant="bodyMedium">WED</Text>
-        <Text variant="bodyMedium">01/20/2023</Text>
+        <Text variant="bodyMedium">{time}</Text>
+        <Text variant="bodyMedium">{date}</Text>
       </View>
 
       <View style={{ flex: 1, marginHorizontal: 16 }}>
         <Text variant="titleMedium">{item.tag}</Text>
-        <Text variant="bodyMedium" color={colors.onSurfaceVariant}>
+        <Text variant="bodyMedium" color={colors.outline}>
           {item.notes}
         </Text>
       </View>
 
       <View>
-        <Text variant="labelLarge" color={color}>{`P${item.amount}`}</Text>
+        <Text variant="labelLarge" color={color}>{`${isExpense ? "-" : "+"}P${
+          item.amount
+        }`}</Text>
       </View>
     </Container>
   );
@@ -38,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 16,
     marginVertical: 8,
-    backgroundColor: "white",
+    height: 80,
   },
   date: {
     borderRightWidth: 1,

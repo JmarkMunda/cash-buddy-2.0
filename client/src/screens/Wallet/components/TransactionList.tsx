@@ -9,12 +9,15 @@ import TransactionCard from "./TransactionCard";
 import { FlashList } from "@shopify/flash-list";
 import { useWalletStore } from "../../../zustand/wallet/store";
 import { useNavigation } from "@react-navigation/native";
+import { useTransactionsStore } from "../../../zustand/transactions/store";
+import { useAppTheme } from "../../../utils/theme";
 
 const HEIGHT = Dimensions.get("window").height;
 
 const TransactionList = () => {
+  const { colors } = useAppTheme();
   const tabBarHeight = useBottomTabBarHeight();
-  const records = useWalletStore(({ records }) => records);
+  const records = useTransactionsStore(({ records }) => records);
   const navigation = useNavigation();
 
   const onSeeAllPress = () => {
@@ -31,11 +34,15 @@ const TransactionList = () => {
 
   return (
     <View style={[AppStyles.flex, { marginBottom: tabBarHeight + 40 }]}>
-      <Container intensity={50} style={[AppStyles.flex, styles.container]}>
+      <Container opacity={0.5} style={[AppStyles.flex, styles.container]}>
         <View style={styles.transactionHeader}>
-          <Text variant="titleMedium">Transactions</Text>
+          <Text variant="titleMedium" color={colors.text}>
+            Transactions
+          </Text>
           <TouchableOpacity onPress={onSeeAllPress}>
-            <Text variant="titleSmall">See all</Text>
+            <Text variant="titleSmall" color={colors.text}>
+              See all
+            </Text>
           </TouchableOpacity>
         </View>
 

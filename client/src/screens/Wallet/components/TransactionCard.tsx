@@ -3,20 +3,20 @@ import Container from "../../../components/Container";
 import spacings from "../../../utils/spacings";
 import { StyleSheet, View } from "react-native";
 import Text from "../../../components/Text";
-import { RecordType } from "../../../zustand/wallet/transactionSlice";
-import { useTheme } from "react-native-paper";
+import { RecordType } from "../../../zustand/transactions/transactionSlice";
+import { useAppTheme } from "../../../utils/theme";
 
 interface ITransactionCard {
   item: RecordType;
 }
 
 const TransactionCard = ({ item }: ITransactionCard) => {
-  const { colors } = useTheme();
-  const isExpense = item.type === "cash-out";
-  const color = isExpense ? "#d35656" : "#499ce0";
+  const { colors } = useAppTheme();
+  const isExpense = item.type === "expenses";
+  const color = isExpense ? colors.error : colors.primary;
 
   return (
-    <Container style={[spacings.my8, spacings.p16]} intensity={80}>
+    <Container style={[spacings.my8, spacings.p16]} opacity={0.8}>
       <View style={styles.contentContainer}>
         <View>
           <Text variant="labelLarge" color={color}>
