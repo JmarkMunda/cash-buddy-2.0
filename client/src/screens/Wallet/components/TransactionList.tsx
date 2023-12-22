@@ -1,20 +1,17 @@
 import React from "react";
 import Container from "../../../components/Container";
 import Text from "../../../components/Text";
-import { TouchableOpacity, View, StyleSheet, Dimensions } from "react-native";
+import { TouchableOpacity, View, StyleSheet } from "react-native";
 import spacings from "../../../utils/spacings";
 import AppStyles from "../../../utils/styles";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import TransactionCard from "./TransactionCard";
 import { FlashList } from "@shopify/flash-list";
-import { useWalletStore } from "../../../zustand/wallet/store";
 import { useNavigation } from "@react-navigation/native";
 import { useTransactionsStore } from "../../../zustand/transactions/store";
 import { useAppTheme } from "../../../utils/theme";
 
-const HEIGHT = Dimensions.get("window").height;
-
-const TransactionList = () => {
+const TransactionList = ({ isBankView }) => {
   const { colors } = useAppTheme();
   const tabBarHeight = useBottomTabBarHeight();
   const records = useTransactionsStore(({ records }) => records);
@@ -48,7 +45,7 @@ const TransactionList = () => {
 
         <View style={{ minHeight: 2, flex: 1 }}>
           <FlashList
-            data={records}
+            data={records.slice(0, 3)}
             keyExtractor={(item, index) => index.toString()}
             renderItem={renderItem}
             estimatedItemSize={20}
@@ -65,7 +62,6 @@ const styles = StyleSheet.create({
   container: {
     ...spacings.p24,
     borderRadius: 16,
-    height: HEIGHT / 2.5,
   },
   transactionHeader: {
     ...AppStyles.just_between,

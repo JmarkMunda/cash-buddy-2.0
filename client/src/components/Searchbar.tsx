@@ -30,7 +30,7 @@ const Searchbar = ({
       onChangeText={onChangeText}
       onClearIconPress={onClearIconPress}
       style={{
-        backgroundColor: colors.outlineVariant,
+        backgroundColor: colors.inverseOnSurface,
         flex: 1,
         borderRadius: 8,
       }}

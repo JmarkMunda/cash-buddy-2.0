@@ -1,4 +1,5 @@
 import { StateCreator } from "zustand";
+import { sortRecords } from "./utils";
 
 type RecordType = {
   id: string;
@@ -11,6 +12,8 @@ type RecordType = {
 };
 
 type FilterType = {
+  type?: "all" | "incomes" | "expenses";
+  sortBy?: "newest" | "oldest" | "amountLow" | "amountHigh";
   tags?: string[];
   searchText?: string;
 };
@@ -27,6 +30,8 @@ type Actions = {
   insertRecord: (details: RecordType) => void;
   deleteRecord: (details: RecordType) => void;
   applyFilters: (filters: FilterType | null) => void;
+  filterByType: (type: FilterType["type"]) => void;
+  sortBy: (type: FilterType["sortBy"]) => void;
   filterByTags: (tags: string[]) => void;
   searchByNote: (text: string) => void;
 };
@@ -42,10 +47,11 @@ const initialState: State = {
 };
 
 const createTransactionSlice: StateCreator<TransactionSliceType> = (set) => ({
+  // ------------- CRUD -----------------
   ...initialState,
   insertRecord: (details) =>
     set((state) => ({
-      records: [...state.records, details],
+      records: [details, ...state.records],
       [details.type]: state[details.type] + +details.amount,
     })),
   deleteRecord: (details) =>
@@ -53,15 +59,25 @@ const createTransactionSlice: StateCreator<TransactionSliceType> = (set) => ({
       records: state.records.filter((record) => record.id !== details.id),
       [details.type]: state[details.type] - +details.amount,
     })),
+  // -------------- FILTERS ---------------
   applyFilters: (filters: FilterType) => set({ filters }),
+  filterByType: (type) =>
+    set((state) => ({
+      filteredRecords:
+        type === "all"
+          ? state.records
+          : state.records.filter((record) => record.type === type),
+    })),
+  sortBy: (type: FilterType["sortBy"]) =>
+    set((state) => ({
+      filteredRecords: sortRecords(state.filteredRecords, type),
+    })),
   filterByTags: (tags: string[]) =>
-    set((state) => {
-      const recordsCopy = [...state.records];
-      const filteredData = recordsCopy.filter((record) => {
-        return tags.some((tag) => tag === record.tag);
-      });
-      return { filteredRecords: filteredData };
-    }),
+    set((state) => ({
+      filteredRecords: state.filteredRecords.filter((record) =>
+        tags.includes(record.tag)
+      ),
+    })),
   searchByNote: (text: string) =>
     set((state) => ({
       filteredRecords: state.records.filter((record) =>
