@@ -17,20 +17,24 @@ const Display = () => {
       style={[styles.container, { backgroundColor: colors.surfaceVariant }]}>
       <TextInput
         value={total ? total.toString() : ""}
-        style={[styles.totalContainer, { color: colors.background }]}
+        style={[styles.totalContainer, { color: colors.onBackground }]}
         editable={false}
         multiline
       />
       <View style={styles.expressionContainer}>
-        <Text variant="displaySmall" color={colors.background}>
+        <Text variant="displaySmall" color={colors.onBackground}>
           {operator}
         </Text>
         <TextInput
           value={expression}
           placeholder="0"
-          placeholderTextColor={colors.background}
+          placeholderTextColor={colors.onBackground}
           editable={false}
-          style={{ fontSize: 36, fontWeight: "bold", color: colors.background }}
+          style={{
+            fontSize: 36,
+            fontWeight: "bold",
+            color: colors.onBackground,
+          }}
         />
       </View>
     </View>

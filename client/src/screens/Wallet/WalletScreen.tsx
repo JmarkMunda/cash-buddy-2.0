@@ -46,31 +46,22 @@ const WalletScreen = () => {
         ) : (
           <WalletBalance />
         )}
-        <View
-          style={{
-            flexDirection: "row",
-            flex: 1,
-            justifyContent: "flex-end",
-            alignItems: "center",
-          }}>
-          <Text>{!isBankView ? "Wallet" : "Bank"}</Text>
-          <Switch value={isBankView} onValueChange={toggleBankView} />
-        </View>
+
         {/* Buttons */}
         <View style={styles.walletBtnContainer}>
           <InOutCashButton
             image={add_wallet}
-            label="Insert cash"
+            label={isBankView ? "Deposit cash" : "Insert cash"}
             onPress={onInsertCashPress}
           />
           <InOutCashButton
             image={minus_wallet}
-            label="Take out cash"
+            label={isBankView ? "Withdraw cash" : "Take out cash"}
             onPress={onTakeOutCashPress}
           />
         </View>
         {/* Lists */}
-        <TransactionList />
+        <TransactionList isBankView={isBankView} />
       </ScrollView>
     </LinearContainer>
   );

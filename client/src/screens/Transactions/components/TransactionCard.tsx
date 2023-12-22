@@ -10,7 +10,7 @@ const TransactionCard = ({ item }: ITransactionCard) => {
   const { colors } = useAppTheme();
   const isExpense = item.type === "expenses";
   const color = isExpense ? colors.error : colors.primary;
-  const date = formatDate(item.date, "dddd");
+  const date = formatDate(item.date, "MM/DD/YY");
   const time = formatDate(item.date, "LT");
 
   return (
@@ -19,8 +19,12 @@ const TransactionCard = ({ item }: ITransactionCard) => {
       radius={8}
       style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.date}>
-        <Text variant="bodyMedium">{time}</Text>
-        <Text variant="bodyMedium">{date}</Text>
+        <Text variant="bodyMedium" color={colors.inverseSurface}>
+          {time}
+        </Text>
+        <Text variant="bodyMedium" color={colors.outline}>
+          {date}
+        </Text>
       </View>
 
       <View style={{ flex: 1, marginHorizontal: 16 }}>
@@ -31,9 +35,7 @@ const TransactionCard = ({ item }: ITransactionCard) => {
       </View>
 
       <View>
-        <Text variant="labelLarge" color={color}>{`${isExpense ? "-" : "+"}P${
-          item.amount
-        }`}</Text>
+        <Text variant="labelLarge" color={color}>{`P${item.amount}`}</Text>
       </View>
     </Container>
   );

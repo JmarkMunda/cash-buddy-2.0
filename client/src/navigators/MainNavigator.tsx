@@ -40,7 +40,7 @@ const MainNavigator = () => {
       <Stack.Screen
         name="Calculator"
         component={CalculatorScreen}
-        options={{ animation: "fade" }}
+        options={{ animation: "fade_from_bottom" }}
       />
       <Stack.Screen name="Transactions" component={TransactionsScreen} />
       <Stack.Screen name="Categories" component={CategoriesScreen} />
