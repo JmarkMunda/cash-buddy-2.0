@@ -4,4 +4,5 @@ export type FormValues = {
   tag: string;
   notes?: string;
   amount: string;
+  color: string;
 };

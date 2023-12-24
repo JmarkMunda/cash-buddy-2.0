@@ -6,5 +6,6 @@ export const cashInSchema = yup
     tag: yup.string().required().nonNullable(),
     notes: yup.string().notRequired().max(20),
     amount: yup.string().required(),
+    color: yup.string().required(),
   })
   .required();
