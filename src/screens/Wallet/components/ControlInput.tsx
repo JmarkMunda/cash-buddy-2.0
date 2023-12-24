@@ -1,6 +1,6 @@
 import React from "react";
 // import Input from "../../../components/Input";
-import { TextInput, View, TextStyle, Platform } from "react-native";
+import { TextInput, View, TextStyle } from "react-native";
 import { useController, UseControllerProps } from "react-hook-form";
 import { FormValues } from "../types";
 import Text from "../../../components/Text";
@@ -17,7 +17,7 @@ type ControlInputType = IControlInput & TextInputProps;
 
 const ControlInput = (props: ControlInputType) => {
   const { field, fieldState } = useController(props);
-  const { colors, dark } = useAppTheme();
+  const { colors } = useAppTheme();
 
   return (
     <>
@@ -33,8 +33,14 @@ const ControlInput = (props: ControlInputType) => {
         value={field.value.toString()}
         onChangeText={field.onChange}
         placeholder={props.placeholder}
-        placeholderTextColor={colors.onSurfaceVariant}
+        placeholderTextColor={colors.outline}
         color={colors.onBackground}
+        style={{
+          textAlign: "center",
+          fontSize: 32,
+          marginVertical: 8,
+          height: 100,
+        }}
         {...props}
       />
     </>

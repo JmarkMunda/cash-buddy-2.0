@@ -14,7 +14,7 @@ import { DropdownAlertType } from "react-native-dropdownalert";
 import { v1 as uuidv1 } from "uuid";
 import { useTransactionsStore } from "../../../zustand/transactions/store";
 import { useAppTheme } from "../../../utils/theme";
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import AppStyles from "../../../utils/styles";
 import Button from "../../../components/Button";
 import ControlInput from "./ControlInput";
@@ -22,8 +22,8 @@ import ControlDropdown from "./ControlDropdown";
 import Container from "../../../components/Container";
 import ColorPickerModal from "./ColorPickerModal";
 import Text from "../../../components/Text";
-import ButtonContainer from "../../../components/ButtonContainer";
-import spacings from "../../../utils/spacings";
+import ControlColors from "./ControlColors";
+import { notes } from "../../../../assets/images/assets";
 
 interface IWalletSheetProps {
   type: "incomes" | "expenses";
@@ -37,30 +37,25 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
   );
   const insertRecord = useTransactionsStore(({ insertRecord }) => insertRecord);
   // Local State
-  const [value, setValue] = useState(null);
+  const [tag, setTag] = useState(null);
   const [showColorModal, setShowColorModal] = useState(false);
   // Form validation
-  const { control, handleSubmit, reset, formState } = useForm<FormValues>({
-    resolver: yupResolver(cashInSchema) as any,
-    defaultValues: {
-      tag: "",
-      notes: "",
-      amount: "",
-    },
-  });
-
-  const [color, setColor] = useState("#ffffff");
+  const { control, handleSubmit, reset, setValue, getValues, formState } =
+    useForm<FormValues>({
+      resolver: yupResolver(cashInSchema) as any,
+      defaultValues: {
+        tag: "",
+        notes: "",
+        amount: "",
+        color: "",
+      },
+    });
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
-      setValue(null);
+      setTag(null);
       reset();
       SheetManager.hide("wallet-sheet");
-      alertAsync({
-        type: DropdownAlertType.Success,
-        title: "Success!",
-        message: "Transaction complete",
-      });
     }
 
     if (Object.keys(formState.errors).length) {
@@ -82,26 +77,25 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
       id: uuidv1(),
       type: props.payload?.type,
       date: new Date(),
-      color,
       ...data,
     });
   };
 
   // COLOR PICKER HANDLERS
   const handleSelectColor = (color: string) => {
-    setColor(color);
+    setValue("color", color, { shouldValidate: true });
   };
 
   return (
     <>
       <ActionSheet id={props.sheetId} useBottomSafeAreaPadding>
         <Container style={AppStyles.container}>
-          <Text variant="labelLarge" style={{ alignSelf: "center" }}>
+          <Text variant="titleMedium" style={{ alignSelf: "center" }}>
             {props.payload?.type === "incomes" ? "CASH IN" : "CASH OUT"}
           </Text>
           <ControlDropdown
-            value={value}
-            setValue={setValue}
+            value={tag}
+            setValue={setTag}
             items={defaultTags}
             name="tag"
             control={control}
@@ -109,27 +103,11 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
           />
 
           {/* COLOR PICKER */}
-          <View
-            style={[AppStyles.flex_row, AppStyles.just_between, spacings.py8]}>
-            <View style={AppStyles.flex_row}>
-              <Text variant="labelLarge">Color:</Text>
-              <View
-                style={{
-                  width: 20,
-                  height: 20,
-                  backgroundColor: color,
-                  marginHorizontal: 8,
-                  borderRadius: 99,
-                  borderWidth: 1,
-                }}
-              />
-            </View>
-            <ButtonContainer
-              containerStyle={{ alignSelf: "flex-end" }}
-              onPress={() => setShowColorModal((prev) => !prev)}>
-              <Text variant="labelLarge"> Pick a color</Text>
-            </ButtonContainer>
-          </View>
+          <ControlColors
+            name="color"
+            control={control}
+            onPickColorPress={() => setShowColorModal(true)}
+          />
 
           <ControlInput
             name="amount"
@@ -137,33 +115,44 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
             labelStyle={{ justifyContent: "center" }}
             keyboardType="number-pad"
             placeholder="0"
-            style={{
-              textAlign: "center",
-              fontSize: 32,
-              marginVertical: 8,
-              height: 100,
-            }}
           />
 
-          <ControlInput
-            name="notes"
-            placeholder="Add notes..."
-            control={control}
-            style={{
-              marginVertical: 8,
-              height: 50,
-              fontSize: 14,
-              textAlign: "center",
-            }}
-          />
+          <View
+            style={[
+              AppStyles.flex_row,
+              AppStyles.items_center,
+              AppStyles.just_center,
+            ]}>
+            <Image
+              source={notes}
+              style={{ width: 20, height: 20, marginRight: 8 }}
+            />
+            <ControlInput
+              name="notes"
+              placeholder="Add notes..."
+              control={control}
+              style={{
+                marginVertical: 8,
+                height: 50,
+                fontSize: 14,
+              }}
+            />
+          </View>
 
           <Button
             mode="contained"
             onPress={handleSubmit(onSubmit)}
             loading={loading}
+            disabled={!formState.isValid || loading}
             textColor="white"
             buttonColor={colors.secondaryContainer}>
-            {props.payload?.type === "incomes" ? "Insert" : "Take out"}
+            {props.payload?.type === "incomes"
+              ? !loading
+                ? "Insert"
+                : "Inserting..."
+              : !loading
+              ? "Take out"
+              : "Taking out..."}
           </Button>
         </Container>
 
