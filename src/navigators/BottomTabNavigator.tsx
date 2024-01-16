@@ -12,6 +12,7 @@ import spacings from "../utils/spacings";
 import CalendarScreen from "../screens/Calendar/CalendarScreen";
 import StatisticsScreen from "../screens/Statistics/StatisticsScreen";
 import { useAppTheme } from "../utils/theme";
+import CalculatorScreen from "../screens/Calculator/CalculatorScreen";
 
 type IconProps = {
   focused: boolean;
@@ -37,14 +38,14 @@ const BottomTabNavigator = () => {
       icon: (props: IconProps) => <Ionicons name="stats-chart" {...props} />,
     },
     {
-      name: "History",
-      component: HistoryScreen,
-      icon: (props: IconProps) => <FontAwesome name="history" {...props} />,
-    },
-    {
       name: "Calendar",
       component: CalendarScreen,
       icon: (props: IconProps) => <Entypo name="calendar" {...props} />,
+    },
+    {
+      name: "Calculator",
+      component: CalculatorScreen,
+      icon: (props: IconProps) => <Entypo name="calculator" {...props} />,
     },
   ];
 
@@ -53,15 +54,15 @@ const BottomTabNavigator = () => {
       initialRouteName="Wallet"
       screenOptions={(props) => ({
         headerTransparent: true,
-        headerLeft: (btnProps) => (
-          <HeaderButton
-            name="calculator-outline"
-            size={32}
-            onPress={() => props.navigation.navigate("Calculator")}
-            containerStyle={spacings.mx16}
-            {...btnProps}
-          />
-        ),
+        // headerLeft: (btnProps) => (
+        //   <HeaderButton
+        //     name="calculator-outline"
+        //     size={32}
+        //     onPress={() => props.navigation.navigate("Calculator")}
+        //     containerStyle={spacings.mx16}
+        //     {...btnProps}
+        //   />
+        // ),
         headerRight: (btnProps) => (
           <HeaderButton
             name="settings-outline"
@@ -91,7 +92,7 @@ const BottomTabNavigator = () => {
         tabBarInactiveTintColor: colors.text,
         tabBarBackground: () => (
           <Container
-            opacity={0.8}
+            opacity={0.5}
             radius={99}
             style={StyleSheet.absoluteFill}
           />

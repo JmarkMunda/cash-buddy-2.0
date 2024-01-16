@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     ...AppStyles.flex_center,
+    backgroundColor: "transparent",
   },
   image: {
     width: Dimensions.get("window").width / 2,

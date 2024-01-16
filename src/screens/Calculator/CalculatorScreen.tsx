@@ -9,7 +9,8 @@ const CalculatorScreen = ({ navigation }) => {
 
   return (
     <LinearContainer
-      colors={[colors.background, colors.background]}
+      colors={[colors.primaryContainer, colors.surfaceVariant]}
+      // colors={[colors.background, colors.background]}
       style={{ paddingHorizontal: 0 }}>
       {/* DISPLAY */}
       <Display />

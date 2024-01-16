@@ -17,7 +17,7 @@ const WalletScreen = () => {
   const [isBankView, toggleBankView] = useSettingsStore(
     ({ isBankView, toggleBankView }) => [isBankView, toggleBankView]
   );
-  const bgColor = isBankView
+  const bgColor = !isBankView
     ? [colors.primaryContainer, colors.surfaceVariant]
     : [colors.tertiaryContainer, colors.surfaceVariant];
 
@@ -41,11 +41,12 @@ const WalletScreen = () => {
       end={{ x: 0.1, y: 0.9 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Balance */}
-        {isBankView ? (
+        <CardBalance isBankView={isBankView} />
+        {/* {isBankView ? (
           <CardBalance isBankView={isBankView} />
         ) : (
           <WalletBalance />
-        )}
+        )} */}
 
         {/* Buttons */}
         <View style={styles.walletBtnContainer}>

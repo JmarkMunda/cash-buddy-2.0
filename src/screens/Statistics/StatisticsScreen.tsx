@@ -9,11 +9,13 @@ import SegmentedButtons from "./components/SegmentedButtons";
 import PieChart from "./components/PieChart";
 import Empty from "../../components/Empty";
 import { minus_wallet } from "../../../assets/images/assets";
+import { useAppTheme } from "../../utils/theme";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 
 const StatisticsScreen = () => {
+  const { colors } = useAppTheme();
   const records = useTransactionsStore(({ records }) => records);
 
   const [chartData, setChartData] = useState([]);
@@ -60,7 +62,7 @@ const StatisticsScreen = () => {
   };
 
   return (
-    <LinearContainer>
+    <LinearContainer colors={[colors.primaryContainer, colors.surfaceVariant]}>
       <SegmentedButtons currentTab={currentTab} setCurrentTab={setCurrentTab} />
       {!chartData.length ? (
         <Empty

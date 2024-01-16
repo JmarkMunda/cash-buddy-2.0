@@ -3,12 +3,14 @@ import Button from "./Button";
 import { View, StyleSheet, Dimensions } from "react-native";
 import { useCalculatorStore } from "../../../zustand/calculator/store";
 import { useAppTheme } from "../../../utils/theme";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 const PADDING = 16;
 const { width, height } = Dimensions.get("window");
 
 const Numpad = () => {
   const { colors } = useAppTheme();
+  const btbHeight = useBottomTabBarHeight();
   const [
     expression,
     operator,
@@ -90,7 +92,7 @@ const Numpad = () => {
   };
 
   return (
-    <View style={[styles.rootContainer]}>
+    <View style={[styles.rootContainer, { paddingBottom: btbHeight }]}>
       <View style={styles.firstRow}>
         <Button
           title="AC"
@@ -192,7 +194,7 @@ const Numpad = () => {
 
 const styles = StyleSheet.create({
   rootContainer: {
-    height: "70%",
+    height: "75%",
     justifyContent: "center",
     gap: 8,
     padding: 16,

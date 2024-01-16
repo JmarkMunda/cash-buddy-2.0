@@ -6,11 +6,12 @@ import Card from "../../../components/Card";
 import { ImageBackground } from "react-native";
 import { card_wallet_bg } from "../../../../assets/images/assets";
 import { useWalletStore } from "../../../zustand/wallet/store";
-import Button from "../../../components/Button";
 import { IconButton } from "react-native-paper";
 
 const CardBalance = ({ isBankView }) => {
-  const [bankBalance] = useWalletStore(({ bankBalance }) => [bankBalance]);
+  const [bankBalance, cashBalance] = useWalletStore(
+    ({ bankBalance, cashBalance }) => [bankBalance, cashBalance]
+  );
   const [visible, setVisible] = useState(false);
 
   const onEyePress = () => {
@@ -38,7 +39,7 @@ const CardBalance = ({ isBankView }) => {
             color="white"
             style={[{ fontWeight: "bold", marginVertical: 4 }]}>
             {`P ${
-              visible ? bankBalance : "*".repeat(bankBalance.toString().length)
+              visible ? cashBalance : "*".repeat(cashBalance.toString().length)
             }`}
           </Text>
 
