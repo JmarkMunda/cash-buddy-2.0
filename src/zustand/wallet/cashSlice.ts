@@ -6,8 +6,9 @@ type State = {
 };
 
 type Actions = {
-  insertCash: (amount: number) => void;
-  takeOutCash: (amount: number) => void;
+  insertCash: (amount: number) => Promise<void>;
+  takeOutCash: (amount: number) => Promise<void>;
+  editCash: (amount: number) => Promise<void>;
 };
 
 type CashSliceType = State & Actions;
@@ -32,6 +33,14 @@ const createCashSlice: StateCreator<CashSliceType> = (set) => ({
     await new Promise((resolve) => setTimeout(resolve, 1000));
     set((state) => ({
       cashBalance: state.cashBalance - amount,
+      loading: false,
+    }));
+  },
+  editCash: async (amount) => {
+    set({ loading: true });
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    set((state) => ({
+      cashBalance: amount,
       loading: false,
     }));
   },

@@ -25,6 +25,9 @@ const AppStyles = StyleSheet.create({
   just_even: {
     justifyContent: "space-evenly",
   },
+  just_around: {
+    justifyContent: "space-around",
+  },
   items_center: {
     alignItems: "center",
   },

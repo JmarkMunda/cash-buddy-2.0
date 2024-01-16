@@ -3,22 +3,17 @@ import Dropdown from "../../../components/Dropdown";
 import { useController } from "react-hook-form";
 import { View } from "react-native";
 
-const ControlDropdown = ({
-  items,
-  value,
-  setValue,
-  name,
-  control,
-  ...props
-}) => {
+const ControlDropdown = ({ items, name, control, setValue, ...props }) => {
   const { field, fieldState } = useController({ name, control });
 
   return (
     <View style={{ marginVertical: 16, zIndex: 99 }}>
       <Dropdown
-        value={value}
-        setValue={setValue}
-        onChangeValue={field.onChange}
+        value={field.value}
+        setValue={field.onChange}
+        onChangeValue={(value) =>
+          setValue(name, value, { shouldValidate: true })
+        }
         items={items}
         badgeDotColors={["red", "blue", "orange"]}
         {...(fieldState?.error?.message && { style: { borderColor: "red" } })}
