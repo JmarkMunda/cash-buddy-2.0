@@ -29,7 +29,7 @@ const ControlColors = ({ name, control, onPickColorPress }: IControlColors) => {
         style={{
           width: 20,
           height: 20,
-          backgroundColor: field.value.toString(),
+          backgroundColor: `${field.value}`,
           marginHorizontal: 8,
           borderRadius: 99,
           borderWidth: 1,

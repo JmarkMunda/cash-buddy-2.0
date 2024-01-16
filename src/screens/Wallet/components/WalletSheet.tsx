@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ActionSheet, {
   SheetManager,
   SheetProps,
 } from "react-native-actions-sheet";
-import { useWalletStore } from "../../../zustand/wallet/store";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { cashInSchema } from "../../../utils/schema";
+import { walletSchema } from "../../../utils/schema";
 import { FormValues } from "../types";
 import { useForm } from "react-hook-form";
 import { defaultTags } from "../../../utils/constants";
-import { alertAsync } from "../../../components/ToastAlert";
-import { DropdownAlertType } from "react-native-dropdownalert";
-import { v1 as uuidv1 } from "uuid";
-import { useTransactionsStore } from "../../../zustand/transactions/store";
 import { useAppTheme } from "../../../utils/theme";
 import { Image, View } from "react-native";
 import AppStyles from "../../../utils/styles";
@@ -23,63 +18,43 @@ import Container from "../../../components/Container";
 import ColorPickerModal from "./ColorPickerModal";
 import Text from "../../../components/Text";
 import ControlColors from "./ControlColors";
-import { notes } from "../../../../assets/images/assets";
+import { notes as noteImg } from "../../../../assets/images/assets";
+import useWalletSheet from "../hooks/useWalletSheet";
+import { RecordType } from "../../../zustand/transactions/transactionSlice";
+import { v1 as uuidv1 } from "uuid";
 
 interface IWalletSheetProps {
   type: "incomes" | "expenses";
+  data?: RecordType;
 }
 
 const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
   const { colors } = useAppTheme();
-  // Global State
-  const [loading, insertCash, takeOutCash] = useWalletStore(
-    ({ loading, insertCash, takeOutCash }) => [loading, insertCash, takeOutCash]
-  );
-  const insertRecord = useTransactionsStore(({ insertRecord }) => insertRecord);
-  // Local State
-  const [tag, setTag] = useState(null);
-  const [showColorModal, setShowColorModal] = useState(false);
-  // Form validation
-  const { control, handleSubmit, reset, setValue, getValues, formState } =
-    useForm<FormValues>({
-      resolver: yupResolver(cashInSchema) as any,
-      defaultValues: {
-        tag: "",
-        notes: "",
-        amount: "",
-        color: "",
-      },
-    });
-
-  useEffect(() => {
-    if (formState.isSubmitSuccessful) {
-      setTag(null);
-      reset();
-      SheetManager.hide("wallet-sheet");
-    }
-
-    if (Object.keys(formState.errors).length) {
-      alertAsync({
-        type: DropdownAlertType.Error,
-        title: "Failed!",
-        message: Object.values(formState.errors)[0]?.message,
-      });
-    }
-  }, [formState.isSubmitSuccessful, formState.errors, reset]);
-
-  const onSubmit = async (data: FormValues) => {
-    if (props.payload?.type === "incomes") {
-      await insertCash(+data.amount);
-    } else {
-      await takeOutCash(+data.amount);
-    }
-    insertRecord({
-      id: uuidv1(),
-      type: props.payload?.type,
-      date: new Date(),
-      ...data,
-    });
-  };
+  // EDIT DATA
+  const { id, amount, color, date, tag, type, notes } =
+    props.payload?.data || {};
+  // CUSTOM HOOK
+  const {
+    loading,
+    showColorModal,
+    setShowColorModal,
+    onSubmit,
+    getHeaderText,
+    getButtonText,
+  } = useWalletSheet(props.payload.type);
+  // FORM VALIDATION
+  const { control, handleSubmit, setValue, formState } = useForm<FormValues>({
+    resolver: yupResolver(walletSchema) as any,
+    defaultValues: {
+      id: props.payload.data ? id : uuidv1(),
+      tag: props.payload.data ? tag : "",
+      notes: props.payload.data ? notes : "",
+      amount: props.payload.data ? amount : "",
+      color: props.payload.data ? color : "",
+      date: props.payload.data ? date : new Date(),
+      type: props.payload.data ? type : props.payload.type,
+    },
+  });
 
   // COLOR PICKER HANDLERS
   const handleSelectColor = (color: string) => {
@@ -91,15 +66,14 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
       <ActionSheet id={props.sheetId} useBottomSafeAreaPadding>
         <Container style={AppStyles.container}>
           <Text variant="titleMedium" style={{ alignSelf: "center" }}>
-            {props.payload?.type === "incomes" ? "CASH IN" : "CASH OUT"}
+            {getHeaderText(id, props.payload.type)}
           </Text>
           <ControlDropdown
-            value={tag}
-            setValue={setTag}
             items={defaultTags}
             name="tag"
             control={control}
             placeholder="Select a Tag"
+            setValue={setValue}
           />
 
           {/* COLOR PICKER */}
@@ -124,7 +98,7 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
               AppStyles.just_center,
             ]}>
             <Image
-              source={notes}
+              source={noteImg}
               style={{ width: 20, height: 20, marginRight: 8 }}
             />
             <ControlInput
@@ -146,13 +120,7 @@ const WalletSheet = (props: SheetProps<IWalletSheetProps>) => {
             disabled={!formState.isValid || loading}
             textColor="white"
             buttonColor={colors.secondaryContainer}>
-            {props.payload?.type === "incomes"
-              ? !loading
-                ? "Insert"
-                : "Inserting..."
-              : !loading
-              ? "Take out"
-              : "Taking out..."}
+            {getButtonText(id, props.payload.type)}
           </Button>
         </Container>
 

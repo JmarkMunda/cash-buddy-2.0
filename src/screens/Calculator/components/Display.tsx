@@ -5,6 +5,7 @@ import { useCalculatorStore } from "../../../zustand/calculator/store";
 import Text from "../../../components/Text";
 import spacings from "../../../utils/spacings";
 import AppStyles from "../../../utils/styles";
+import Container from "../../../components/Container";
 
 const Display = () => {
   const { colors } = useAppTheme();
@@ -13,8 +14,7 @@ const Display = () => {
   );
 
   return (
-    <View
-      style={[styles.container, { backgroundColor: colors.surfaceVariant }]}>
+    <Container opacity={0.5} style={[styles.container]}>
       <TextInput
         value={total ? total.toString() : ""}
         style={[styles.totalContainer, { color: colors.onBackground }]}
@@ -37,13 +37,13 @@ const Display = () => {
           }}
         />
       </View>
-    </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: "30%",
+    height: "25%",
     padding: 16,
   },
   totalContainer: {

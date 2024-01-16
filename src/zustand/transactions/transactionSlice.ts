@@ -28,6 +28,7 @@ type State = {
 
 type Actions = {
   insertRecord: (details: RecordType) => void;
+  editRecord: (details: RecordType) => void;
   deleteRecord: (details: RecordType) => void;
   applyFilters: (filters: FilterType | null) => void;
   filterByType: (type: FilterType["type"]) => void;
@@ -54,6 +55,13 @@ const createTransactionSlice: StateCreator<TransactionSliceType> = (set) => ({
       records: [details, ...state.records],
       [details.type]: state[details.type] + +details.amount,
     })),
+  editRecord: (details: RecordType) =>
+    set((state) => {
+      const newData = state.records.map((record) =>
+        record.id === details.id ? details : record
+      );
+      return { records: newData };
+    }),
   deleteRecord: (details) =>
     set((state) => ({
       records: state.records.filter((record) => record.id !== details.id),

@@ -8,19 +8,27 @@ import { useTransactionsStore } from "../../../zustand/transactions/store";
 import { useAppTheme } from "../../../utils/theme";
 import TransactionCard from "./TransactionCard";
 import Text from "../../../components/Text";
+import EditModal from "./EditModal";
+import { SheetManager } from "react-native-actions-sheet";
 
 const TransactionsList = ({ records }) => {
   const { colors } = useAppTheme();
   const [takeOutCash, insertCash] = useWalletStore(
     ({ takeOutCash, insertCash }) => [takeOutCash, insertCash]
   );
-  const deleteRecord = useTransactionsStore(({ deleteRecord }) => deleteRecord);
+  const [deleteRecord] = useTransactionsStore(({ deleteRecord }) => [
+    deleteRecord,
+  ]);
 
   const hiddenData = [
     {
       label: "Edit",
       color: colors.primary,
-      handlePress: () => {},
+      handlePress: async (item: RecordType) => {
+        await SheetManager.show("wallet-sheet", {
+          payload: { data: item },
+        });
+      },
     },
     {
       label: "Delete",
@@ -60,7 +68,10 @@ const TransactionsList = ({ records }) => {
         )}
         leftOpenValue={75}
         rightOpenValue={-75}
+        closeOnRowBeginSwipe
       />
+
+      {/* <EditModal /> */}
     </View>
   );
 };
