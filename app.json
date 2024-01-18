@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/add_wallet.png",
+      "image": "./assets/images/money-coins.jpg",
       "resizeMode": "contain"
     },
     "assetBundlePatterns": [
